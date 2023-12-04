@@ -1,5 +1,9 @@
 package org.firstinspires.ftc.teamcode.operations.outputs.motors.drive;
-import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.*;
+
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.bl;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.br;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.fl;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.fr;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -9,6 +13,13 @@ public class Encoders {
         fr.setTargetPosition(frontRight);
         bl.setTargetPosition(backLeft);
         br.setTargetPosition(backRight);
+    }
+
+    public static void targetAll(int position){
+        fl.setTargetPosition(position);
+        fr.setTargetPosition(position);
+        bl.setTargetPosition(position);
+        br.setTargetPosition(position);
     }
     public static void go() {
         fl.setMode(DcMotor.RunMode.RUN_TO_POSITION);

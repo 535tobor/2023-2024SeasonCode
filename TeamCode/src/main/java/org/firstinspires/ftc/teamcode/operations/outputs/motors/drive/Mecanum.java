@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.operations.outputs.motors.drive;
 
 import static org.firstinspires.ftc.teamcode.operations.inputs.TargetInputs.imu;
-import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.HardcoreMovements.fieldCentric;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.hardcoredMovements.CentricMovements.fieldCentric;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 

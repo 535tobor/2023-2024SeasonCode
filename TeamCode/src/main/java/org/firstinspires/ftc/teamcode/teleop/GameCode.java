@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.teleop;
 
 import static com.qualcomm.hardware.rev.RevHubOrientationOnRobot.LogoFacingDirection.UP;
 import static com.qualcomm.hardware.rev.RevHubOrientationOnRobot.UsbFacingDirection.BACKWARD;
@@ -8,14 +8,14 @@ import static org.firstinspires.ftc.teamcode.operations.inputs.Imu.imuGet;
 import static org.firstinspires.ftc.teamcode.operations.inputs.Imu.imuReset;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.forwardMotors;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.mapMotors;
-import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.HardcoreMovements.drive;
-import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.HardcoreMovements.driveStop;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Mecanum.backLeftPower;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Mecanum.backRightPower;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Mecanum.dpadMovements;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Mecanum.fieldCentricMath;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Mecanum.frontLeftPower;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Mecanum.frontRightPower;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.hardcoredMovements.EachMotorSet.driveRaw;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.hardcoredMovements.EachMotorSet.driveStop;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -24,7 +24,6 @@ import org.firstinspires.ftc.teamcode.operations.TargetOperations;
 
 @TeleOp
 public class GameCode extends TargetOperations {
-
     double speed = 0.5; // speed used when using hardcore mode
 
     @Override
@@ -46,6 +45,9 @@ public class GameCode extends TargetOperations {
         // ConfigureMotorPixel.mapMotor("pixel");
         imuGet(hardwareMap, DeviceNames.DEFAULT_IMU.hardwareMapName(), UP.name(), BACKWARD.name());
         initAprilTag(hardwareMap, DeviceNames.DEFAULT_CAMERA.hardwareMapName());
+
+        // ConfigureMotorPixel.mapMotor(hardwareMap, "pixel");
+        // PixelMotorMovements.motorEncoder(); // pixel motor not connected
     }
 
     @Override
@@ -69,10 +71,20 @@ public class GameCode extends TargetOperations {
         //runBarMotor(gamepad2.y);
         // just guesses to how the code might look, this part of the robot has not been built yet.
 
-        drive(frontLeftPower,frontRightPower,backLeftPower,backRightPower);
+        driveRaw(frontLeftPower,frontRightPower,backLeftPower,backRightPower);
         // sets each motor to the speed given by the waypoints method
         // odometer will fix issues with the robot not moving directly forward.
         // ^ this is not a problem for TeleOp, but is a problem in autonomous.
+
+        /* if (gamepad2.a) {
+
+            PixelMotorMovements.rotate(100, 1);
+        }
+        else {
+            PixelMotorMovements.rotate(100, 0);
+        }
+
+         */
 
     }
 

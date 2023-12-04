@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.operations.outputs.motors.drive;
 
-import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.HardcoreMovements.drive;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.hardcoredMovements.EachMotorSet.driveRaw;
 
 
 public class DistanceMovements {
@@ -16,7 +16,7 @@ public class DistanceMovements {
         Encoders.clear();
         Encoders.target(tp, tp, tp, tp);
         Encoders.go();
-        drive(speed,speed,speed,speed);
+        driveRaw(speed,speed,speed,speed);
         
 
     }
@@ -27,7 +27,7 @@ public class DistanceMovements {
         Encoders.clear();
         Encoders.target(tp, tp, tp, tp);
         Encoders.go();
-        drive(speed,speed,speed,speed);
+        driveRaw(speed,speed,speed,speed);
         
 
     }
@@ -38,7 +38,7 @@ public class DistanceMovements {
         Encoders.clear();
         Encoders.target(tp, tp, tp, tp);
         Encoders.go();
-        drive(speed,speed,speed,speed);
+        driveRaw(speed,speed,speed,speed);
         
 
     }

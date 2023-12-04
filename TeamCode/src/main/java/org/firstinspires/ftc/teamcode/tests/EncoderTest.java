@@ -1,23 +1,27 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.tests;
 
 import static org.firstinspires.ftc.teamcode.operations.inputs.AprilTag.initAprilTag;
 import static org.firstinspires.ftc.teamcode.operations.inputs.Camera.visionPortal;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.bl;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.br;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.fl;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.forwardMotors;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.fr;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.mapMotors;
-import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.DistanceMovements.forward;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.hardcoredMovements.EachMotorSet.drive;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.hardcoredMovements.TargetHardcoreMovements.encoderSpeed;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.hardcoredMovements.TargetHardcoreMovements.ticksPerInch;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.operations.TargetOperations;
 import org.firstinspires.ftc.teamcode.operations.Wheels;
 import org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Encoders;
 
-@Autonomous(name="Blue, Board Side")
-public class BlueBoardSide extends TargetOperations {
 
-    DcMotor arm;
+@Autonomous(name="Encoder Test", group="test")
+// @Disabled // test files are disabled if not in use
+public class EncoderTest extends TargetOperations {
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -38,8 +42,8 @@ public class BlueBoardSide extends TargetOperations {
         forwardMotors(true,false,true,false);
         // ^ set motor directions
         initAprilTag(hardwareMap, "Webcam 1");
+        Encoders.use();
         Encoders.clear();
-
     }
 
     @Override
@@ -47,9 +51,24 @@ public class BlueBoardSide extends TargetOperations {
 
     @Override
     public void runStart() {
-        forward(300, 1);
-
+        int ticksPer123Inches = 000; // how many ticks = ___ inches
+        forward(1, 1);
     }
+
+    public void forward(double inches, long seconds) {
+        int finalTicks = (int) (inches * ticksPerInch);
+        Encoders.clear();
+        Encoders.target(-finalTicks,-finalTicks,-finalTicks,-finalTicks);
+        Encoders.go();
+        drive(-encoderSpeed,-encoderSpeed,-encoderSpeed,-encoderSpeed);
+        sleep(seconds*1000);
+    }
+
+    // - forward here.
+
+
+
+
     @Override
     public void runStop() {
         stopAll();
@@ -57,7 +76,10 @@ public class BlueBoardSide extends TargetOperations {
     @Override
     public void runLoop() {
 
-        telemetry.addData("position", br.getCurrentPosition());
+        telemetry.addData("position br ", br.getCurrentPosition());
+        telemetry.addData("position bl ", bl.getCurrentPosition());
+        telemetry.addData("position fr ", fr.getCurrentPosition());
+        telemetry.addData("position fl ", fl.getCurrentPosition());
         telemetry.update();
     }
 }

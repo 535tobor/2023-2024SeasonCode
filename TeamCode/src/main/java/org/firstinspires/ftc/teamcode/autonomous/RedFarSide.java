@@ -1,10 +1,10 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.operations.TargetOperations;
 
-@Autonomous(name="Red, Far Side")
+@Autonomous(name="Red, Far Side", group="auto")
 public class RedFarSide extends TargetOperations {
 
     @Override

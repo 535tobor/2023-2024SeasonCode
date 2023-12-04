@@ -20,6 +20,7 @@ public class TeamProps {
      */
     public static TfodProcessor tfod;
     public static String prop;
+    public static boolean propFound = false;
 
     /**
      * The variable to store our instance of the vision portal.
@@ -124,20 +125,11 @@ public class TeamProps {
             telemetry.addData("- Position", "%.0f / %.0f", x, y);
             telemetry.addData("- Size", "%.0f x %.0f", recognition.getWidth(), recognition.getHeight());
             telemetry.addData("", currentRecognitions.lastIndexOf(recognition));
-
-            if (currentRecognitions.lastIndexOf(recognition) == 1) {
-                Recognition recognition1 = currentRecognitions.get(0);
-                Recognition recognition2 = currentRecognitions.get(1);
-                telemetry.addData("", recognition1.getConfidence());
-                telemetry.addData("", recognition2.getConfidence());
-                if (recognition1.getConfidence() > recognition2.getConfidence()) {
-                    prop = "recognition 1";
-                }
-
-                else {
-                    prop = "recognition 2";
-                }
+            telemetry.addData("-->", recognition.getLabel());
+            if (prop == "blue" || prop == "red") {
+                propFound = true;
             }
+
             telemetry.addData("", prop);
         }   // end for() loop
 

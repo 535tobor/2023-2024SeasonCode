@@ -1,5 +1,6 @@
-package org.firstinspires.ftc.teamcode.refrence;
+package org.firstinspires.ftc.teamcode.refrence.teleop;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -7,6 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 @TeleOp /* this program will fall under TeleOp, if it said
 @Autonomous then it would fall under the autonomous
 catigory on the drop down screen. */
+@Disabled
 public class Tank extends OpMode{
 
     /* Declare OpMode members. */
