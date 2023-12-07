@@ -1,7 +1,8 @@
 # 2023-2024 Center Stage Season Code
 > Piece 3
 
-![image](https://github.com/535tobor/2023-2024SeasonCode/assets/92122791/d52a6e0d-5dea-4cd9-acbf-e9ed486138bb)
+![image](https://github.com/535tobor/2023-2024SeasonCode/assets/92122791/397a5420-961d-4d8e-b635-cf0ce3d0d965)
+
 
 
 ## What's new?
