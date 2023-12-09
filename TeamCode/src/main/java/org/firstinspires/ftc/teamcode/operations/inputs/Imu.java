@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.operations.inputs;
 
 import static com.qualcomm.hardware.rev.RevHubOrientationOnRobot.LogoFacingDirection.*;
 import static com.qualcomm.robotcore.hardware.IMU.*;
-import static org.firstinspires.ftc.teamcode.operations.inputs.TargetInputs.*;
+import static org.firstinspires.ftc.teamcode.operations.inputs.Target_inputs.*;
 
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.HardwareMap;

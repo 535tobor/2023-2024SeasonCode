@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.operations.outputs.motors.drive;
 
-import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.hardcoredMovements.EachMotorSet.driveRaw;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EachMotorSet.driveRaw;
 
 
 public class DistanceMovements {

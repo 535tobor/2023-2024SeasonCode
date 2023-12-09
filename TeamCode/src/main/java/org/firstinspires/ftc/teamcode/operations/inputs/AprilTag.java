@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.operations.inputs;
 
-import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.hardcoredMovements.CentricMovements.*;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.CentricMovements.*;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;

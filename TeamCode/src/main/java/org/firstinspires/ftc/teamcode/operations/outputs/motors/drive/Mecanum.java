@@ -1,7 +1,8 @@
 package org.firstinspires.ftc.teamcode.operations.outputs.motors.drive;
 
-import static org.firstinspires.ftc.teamcode.operations.inputs.TargetInputs.imu;
-import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.hardcoredMovements.CentricMovements.fieldCentric;
+import static org.firstinspires.ftc.teamcode.operations.inputs.Target_inputs.imu;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.CentricMovements.fieldCentric;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Target_drive.*;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
@@ -13,10 +14,6 @@ public class Mecanum {
     static double rotX;
     static double rotY;
     static double denominator;
-    public static double frontLeftPower;
-    public static double frontRightPower;
-    public static double backLeftPower;
-    public static double backRightPower;
     public static double x,y,rx;
 
     public static void fieldCentricMath() {

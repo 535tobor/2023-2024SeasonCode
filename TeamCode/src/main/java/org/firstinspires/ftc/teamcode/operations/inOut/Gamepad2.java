@@ -1,8 +1,8 @@
 package org.firstinspires.ftc.teamcode.operations.inOut;
 
-import static org.firstinspires.ftc.teamcode.operations.TargetOperations.barMotorConfig;
-import static org.firstinspires.ftc.teamcode.operations.TargetOperations.pixelMotorConfig;
-import static org.firstinspires.ftc.teamcode.operations.outputs.motors.pixelMotor.ConfigureMotorPixel.pixelMotor;
+import static org.firstinspires.ftc.teamcode.operations.Target_operations.barMotorConfig;
+import static org.firstinspires.ftc.teamcode.operations.Target_operations.pixelMotorConfig;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.pixelMotor.Target_pixelMotor.pixelMotor;
 
 import org.firstinspires.ftc.teamcode.operations.outputs.motors.barMotor.BarMotorMovements;
 

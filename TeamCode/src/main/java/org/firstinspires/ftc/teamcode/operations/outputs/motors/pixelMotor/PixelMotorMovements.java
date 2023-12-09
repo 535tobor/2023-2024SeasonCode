@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.operations.outputs.motors.pixelMotor;
 
-import static org.firstinspires.ftc.teamcode.operations.outputs.motors.pixelMotor.ConfigureMotorPixel.pixelMotor;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.pixelMotor.Target_pixelMotor.pixelMotor;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 

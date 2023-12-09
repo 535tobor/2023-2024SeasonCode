@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.operations.outputs.motors.barMotor;
 
-import static org.firstinspires.ftc.teamcode.operations.outputs.motors.barMotor.ConfigureMotorBar.barMotor;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.barMotor.Target_barMotor.*;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 
