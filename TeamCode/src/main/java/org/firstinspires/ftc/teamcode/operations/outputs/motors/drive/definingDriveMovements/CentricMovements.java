@@ -48,10 +48,9 @@ public class CentricMovements {
         }
 
         public static void turn(double speed) {
-            fl.setPower(-speed);
-            bl.setPower(-speed);
-
+            waypoints(0, 0, speed);
             fieldCentricMath();
+            driveRaw(frontLeftPower,backLeftPower,frontRightPower,backRightPower);
         }
 
 
