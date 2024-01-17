@@ -63,6 +63,10 @@ public class Mecanum {
         }
 
         else if (gamepad1.left_bumper) {
+            fieldCentric.turn(-speed);
+        }
+
+        else if (gamepad1.right_bumper) {
             fieldCentric.turn(speed);
         }
 
