@@ -22,6 +22,7 @@ import org.firstinspires.ftc.teamcode.operations.Target_operations;
 @TeleOp
 public class DriverControlled extends Target_operations {
     double speed = 0.5; // speed used when using hardcore mode
+    // in the code it is called speed, but it should really be called power
 
     @Override
     public void runOpMode() {
