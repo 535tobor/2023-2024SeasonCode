@@ -10,6 +10,7 @@ public class BarMotorMovements {
             barMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             barMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             barMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            // uses the bar motor with encoder, and stops the motor and sets it on brake
         }
 
         public static void rotate(int rotations, int speed) {

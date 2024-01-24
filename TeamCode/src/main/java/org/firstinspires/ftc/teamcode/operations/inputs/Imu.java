@@ -19,6 +19,7 @@ public class Imu {
         // Retrieve the IMU from the hardware map
         Parameters parameters = null;
         // Adjust the orientation parameters to match your robot
+        // search through all the possible situations to see what direction the control hub is in
         if (Objects.equals(logoFacing, UP.name()) && Objects.equals(usbFacing, FORWARD.name())) {
             parameters = new Parameters(new RevHubOrientationOnRobot(
                     RevHubOrientationOnRobot.LogoFacingDirection.UP,
@@ -76,6 +77,10 @@ public class Imu {
     }
 
     public static void imuReset(boolean button) {
+        // reset imu by pressing the button that is included in method call
+        // the robot must be started facing forward at the start of TeleOp everytime
+        // resetting the imu must be done with the robot facing forward
+        // forward is your forward and your robot's forward both forward, both same direction
         if (button) {
             imu.resetYaw();
         }

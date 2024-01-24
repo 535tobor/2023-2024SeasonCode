@@ -12,6 +12,7 @@ import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.def
 public class CentricMovements {
     // ^ set all motors to 0, this stops all movements
 
+    // go to the set direction
     public static void goDirection(boolean left, boolean right, double speed) {
         if (left) {
             left(speed);
@@ -24,6 +25,7 @@ public class CentricMovements {
 
     public static class fieldCentric {
         // these methods must be ran in the loop() of this project
+        // defines all the directions for TeleOp:
         public static void left(double speed) {
             waypoints(0, -speed, 0);
             fieldCentricMath();
@@ -48,10 +50,9 @@ public class CentricMovements {
         }
 
         public static void turn(double speed) {
-            fl.setPower(-speed);
-            bl.setPower(-speed);
-
+            waypoints(0, 0, speed);
             fieldCentricMath();
+            driveRaw(frontLeftPower,backLeftPower,frontRightPower,backRightPower);
         }
 
 

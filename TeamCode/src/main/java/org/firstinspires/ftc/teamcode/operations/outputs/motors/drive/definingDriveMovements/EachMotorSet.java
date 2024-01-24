@@ -13,6 +13,7 @@ public class EachMotorSet {
         fl.setPower(frontLeftSpeed);
         br.setPower(backRightSpeed);
         bl.setPower(backLeftSpeed);
+        // set raw power (voltage) to each motor individually
 
     }
 
@@ -21,6 +22,7 @@ public class EachMotorSet {
         fl.setVelocity(frontLeftSpeed);
         br.setVelocity(backRightSpeed);
         bl.setVelocity(backLeftSpeed);
+        // set velocity (speed) to each motor individually
 
     }
 
@@ -31,5 +33,6 @@ public class EachMotorSet {
         fr.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         bl.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         br.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        // stop all motors and pull on the brakes
     }
 }

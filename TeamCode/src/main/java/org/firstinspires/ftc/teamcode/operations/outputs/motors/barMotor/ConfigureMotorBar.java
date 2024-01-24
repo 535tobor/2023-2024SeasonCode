@@ -9,6 +9,7 @@ public class ConfigureMotorBar {
     public static void mapMotor (HardwareMap hardwareMap, String motorName) {
         barMotor = hardwareMap.dcMotor.get(motorName);
         barMotorConfig = true;
+        // gets the bar motor from the driver station's hardware map
     }
 
 }

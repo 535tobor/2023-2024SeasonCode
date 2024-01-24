@@ -10,6 +10,7 @@ public class ConfigureMotorPixel {
     public static void mapMotor (HardwareMap hardwareMap, String motorName) {
         pixelMotor = hardwareMap.dcMotor.get(motorName);
         pixelMotorConfig = true;
+        // call the pixel motor from the hardware map
     }
 
 }

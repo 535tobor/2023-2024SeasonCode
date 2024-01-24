@@ -13,6 +13,7 @@ public class Encoders {
         fr.setTargetPosition(frontRight);
         bl.setTargetPosition(backLeft);
         br.setTargetPosition(backRight);
+        // set target position for all 4 motors individually
     }
 
     public static void targetAll(int position){
@@ -20,12 +21,14 @@ public class Encoders {
         fr.setTargetPosition(position);
         bl.setTargetPosition(position);
         br.setTargetPosition(position);
+        // set target position for all 4 motors with one number
     }
     public static void go() {
         fl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         fr.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         bl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         br.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        // make all 4 motors run to the set position
     }
 
     public static void clear() {
@@ -33,6 +36,7 @@ public class Encoders {
         fr.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         bl.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         br.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        // resets all 4 drive encoders
     }
 
     public static void use() {
@@ -40,5 +44,6 @@ public class Encoders {
         fr.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         bl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         br.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        // uses all 4 encoders
     }
 }

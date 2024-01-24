@@ -10,7 +10,7 @@ public class Gamepad2 {
 
     public static void runPixelMotor(boolean button) {
         if (pixelMotorConfig) {
-            // only do the code if pixelMotor is configured
+            // this method runs the pixel motor if the given button is pressed
             if (button) {
                 pixelMotor.setPower(1);
             }
@@ -24,6 +24,7 @@ public class Gamepad2 {
     public static void runBarMotor(boolean button) {
         if (barMotorConfig) {
             if (button) {
+                // rotates the bar motor when the button is pressed
                 BarMotorMovements.rotate(50,1);
             }
         }

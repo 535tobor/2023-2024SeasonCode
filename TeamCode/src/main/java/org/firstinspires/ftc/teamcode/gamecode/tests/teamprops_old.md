@@ -1,7 +1,6 @@
-package org.firstinspires.ftc.teamcode.gamecode.tests;
+# Old -> teamprops.java
 
-import static org.firstinspires.ftc.teamcode.operations.inputs.TeamProps.initFlow;
-import static org.firstinspires.ftc.teamcode.operations.inputs.TeamProps.runFlow;
+package org.firstinspires.ftc.teamcode.gamecode.tests;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -10,7 +9,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.tfod.TfodProcessor;
 @Autonomous(name="Team props", group="test")
-@Disabled 
+@Disabled
 public class TeamProps extends LinearOpMode {
 
     /**

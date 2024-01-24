@@ -16,7 +16,7 @@ public class DriverStation {
 
     public static void output(@NonNull Telemetry display, String caption, Object output) {
         // @NonNull : declares that the object is not at null value
-        // display to telemetry without a caption
+        // display to telemetry with a caption or with a default caption if desired
         captionIf = Boolean.parseBoolean(caption);
         if (captionIf) {
             display.addData(defultCaption.nameValue(), output);

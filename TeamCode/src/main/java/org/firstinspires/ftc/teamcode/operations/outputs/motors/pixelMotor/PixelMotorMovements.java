@@ -9,6 +9,7 @@ public class PixelMotorMovements {
     public static void motorEncoder () {
         pixelMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         pixelMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        // use encoders with the pixel motor
     }
 
     public static void rotate (int rotations, int power) {

@@ -23,12 +23,14 @@ public class ConfigureMotors {
         fr = (DcMotorEx) mapHardware.dcMotor.get(frontRightMotor);
         bl = (DcMotorEx) mapHardware.dcMotor.get(backLeftMotor);
         br = (DcMotorEx) mapHardware.dcMotor.get(backRightMotor);
+        // configure all 4 driving motors
 
 
     }
 
 
     public static void forwardMotors (boolean frontLeftMotor, boolean frontRightMotor, boolean backLeftMotor, boolean backRightMotor) {
+        // define what direction each motor should be
 
         if (!frontRightMotor) {
             fr.setDirection(DcMotorSimple.Direction.REVERSE);
