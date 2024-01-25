@@ -1,12 +1,11 @@
 package org.firstinspires.ftc.teamcode.gamecode.teleop;
 
-import static com.qualcomm.hardware.rev.RevHubOrientationOnRobot.LogoFacingDirection.LEFT;
-import static com.qualcomm.hardware.rev.RevHubOrientationOnRobot.UsbFacingDirection.UP;
+import static com.qualcomm.hardware.rev.RevHubOrientationOnRobot.LogoFacingDirection.UP;
+import static com.qualcomm.hardware.rev.RevHubOrientationOnRobot.UsbFacingDirection.BACKWARD;
 import static org.firstinspires.ftc.teamcode.operations.inputs.AprilTag.initAprilTag;
-import static org.firstinspires.ftc.teamcode.operations.inputs.AprilTag.visionPortal;
+import static org.firstinspires.ftc.teamcode.operations.inputs.Camera.visionPortal;
 import static org.firstinspires.ftc.teamcode.operations.inputs.Imu.imuGet;
 import static org.firstinspires.ftc.teamcode.operations.inputs.Imu.imuReset;
-import static org.firstinspires.ftc.teamcode.operations.inputs.Target_inputs.*;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.forwardMotors;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.mapMotors;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Mecanum.dpadMovements;
@@ -19,15 +18,13 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.operations.inputs.DeviceNames;
 import org.firstinspires.ftc.teamcode.operations.Target_operations;
-import org.firstinspires.ftc.teamcode.operations.outputs.driverStation.Caption;
 
 @TeleOp
 public class DriverControlled extends Target_operations {
-    double speed = 0.5; // speed used when using d_pad
-    // it should really be called power not speed
+    double speed = 0.5; // speed used when using hardcore mode
 
     @Override
-    public void runOpMode() { // runs each necessary mode
+    public void runOpMode() {
         runInit();
         while(opModeInInit()){runInitLoop();}
         waitForStart();
@@ -39,19 +36,15 @@ public class DriverControlled extends Target_operations {
     @Override
     public void runInit() {
         mapMotors(hardwareMap, "fl","fr","bl","br");
-        // grabs the motors from the hardware map and sets the direction to reverse or forward
         forwardMotors(false,true,false,true);
-        // if the camera is not plugged it still run the robot, the try catch fixes that:
-        // camera and use it for april tag
-        initAprilTag(hardwareMap, DeviceNames.DEFAULT_CAMERA.hardwareMapName(), telemetry);
-        // imuGet(hardwareMap, imu Device Name, logo direction, USB direction);
-        imuGet(hardwareMap, DeviceNames.DEFAULT_IMU.hardwareMapName(), LEFT.name(), UP.name());
-        // above is where defining the direction of the control hub for the imu
+        // ConfigureMotorBar.mapMotor("bar");
+        // this is commented because it might show an error sense this motor is not configured and can't be because the motor is not yet connected.
+        // ConfigureMotorPixel.mapMotor("pixel");
+        imuGet(hardwareMap, DeviceNames.DEFAULT_IMU.hardwareMapName(), UP.name(), BACKWARD.name());
+        initAprilTag(hardwareMap, DeviceNames.DEFAULT_CAMERA.hardwareMapName());
 
-
-        // uncomment to map the pixel motor and use it with encoders
         // ConfigureMotorPixel.mapMotor(hardwareMap, "pixel");
-        // PixelMotorMovements.motorEncoder();
+        // PixelMotorMovements.motorEncoder(); // pixel motor not connected
     }
 
     @Override
@@ -71,9 +64,15 @@ public class DriverControlled extends Target_operations {
         imuReset(gamepad1.options); // resets imu case of accidents or incidences
         fieldCentricMath(); // does the required math for Mecanum drive as well as getting imu for field centric
 
-        driveRaw(frontLeftPower,frontRightPower,backLeftPower,backRightPower); // sends the motors each a power according to the joystick and math commands
+        //runPixelMotor(gamepad2.a);
+        //runBarMotor(gamepad2.y);
+        // just guesses to how the code might look, this part of the robot has not been built yet.
 
-        // uncomment this to set the 'a' button on gamepad2 to move the pixel motor
+        driveRaw(frontLeftPower,frontRightPower,backLeftPower,backRightPower);
+        // sets each motor to the speed given by the waypoints method
+        // odometer will fix issues with the robot not moving directly forward.
+        // ^ this is not a problem for TeleOp, but is a problem in autonomous.
+
         /* if (gamepad2.a) {
 
             PixelMotorMovements.rotate(100, 1);

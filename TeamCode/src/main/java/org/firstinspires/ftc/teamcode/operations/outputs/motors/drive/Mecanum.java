@@ -62,18 +62,12 @@ public class Mecanum {
             fieldCentric.backward(speed);
         }
 
-        else if (gamepad1.right_bumper) {
+        else if (gamepad1.left_bumper) {
             fieldCentric.turn(speed);
         }
 
-        else if (gamepad1.left_bumper) {
-            fieldCentric.turn(-speed);
-        }
-
         else {
-            joyStickMovements(gamepad1);
-            // if no d_pad movements then Mecanum move according to joysticks on 1st Gamepad
-            // this way if no input is read from the d_pad then it looks for input given by the joysticks
+            joyStickMovements(gamepad1); // this way if no input is read from the d_pad then it looks for input given by the joysticks
             // if there is no input given by either then the robot is at rest.
         }
     }
