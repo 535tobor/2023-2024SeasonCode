@@ -49,7 +49,7 @@ public class RedBoardSide extends Target_operations {
     @Override
     public void runStart() {
         forwardAuto(3,1,500);
-        strafeRightAuto(37,1,500);
+        strafeRightAuto(39,1,500);
     }
 
     @Override

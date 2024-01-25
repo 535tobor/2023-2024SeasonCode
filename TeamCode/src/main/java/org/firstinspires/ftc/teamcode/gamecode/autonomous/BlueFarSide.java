@@ -49,17 +49,12 @@ public class BlueFarSide extends Target_operations {
 
     @Override
     public void runStart() {
-        forwardAuto(3,1,500); //
-        sleep(2000);
-        strafeRightAuto(8,1,500); //
-        sleep(2000);
-        forwardAuto(15,1,500); //
-        sleep(2000);
-        strafeRightAuto(17,1,500); //
-        sleep(2000);
-        forwardAuto(58,1,500);
-        sleep(2000);
-        strafeLeftAuto(110,1,500);
+        forwardAuto(3,3,500); //
+        strafeRightAuto(8,3,500); //
+        forwardAuto(15,3,500); //
+        strafeRightAuto(17,3,500); //
+        forwardAuto(58,3,500);
+        strafeLeftAuto(110,3,500);
     }
 
     @Override

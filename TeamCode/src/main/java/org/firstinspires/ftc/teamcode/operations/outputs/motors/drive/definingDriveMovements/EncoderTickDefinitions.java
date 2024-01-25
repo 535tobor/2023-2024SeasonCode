@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingD
 
 import static android.os.SystemClock.sleep;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EachMotorSet.drive;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EachMotorSet.driveStop;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.Target_definingDriveMovements.strafeTicksPerInch;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.Target_definingDriveMovements.ticksPerInch;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.Target_definingDriveMovements.turningTicksPerDegree;
@@ -16,6 +17,7 @@ public class EncoderTickDefinitions {
         Encoders.target(-finalTicks,-finalTicks,-finalTicks,-finalTicks); // sets target position
         Encoders.go(); // goes to target position
         drive(-encoderSpeed,-encoderSpeed,-encoderSpeed,-encoderSpeed); // sets the velocity drive
+        driveStop();
         sleep(seconds*1000);
     }
 
@@ -29,6 +31,7 @@ public class EncoderTickDefinitions {
         Encoders.target(finalTicks,-finalTicks,-finalTicks,finalTicks); // sets target position
         Encoders.go(); // goes to target position // fl, fr, bl, br
         drive(encoderSpeed,-encoderSpeed,-encoderSpeed,encoderSpeed); // sets the velocity drive
+        driveStop();
         sleep(seconds*1000);
     }
 
@@ -42,6 +45,7 @@ public class EncoderTickDefinitions {
         Encoders.target(-finalTicks,finalTicks,-finalTicks,finalTicks); // sets target position
         Encoders.go(); // goes to target position // fl, fr, bl, br
         drive(-encoderSpeed,encoderSpeed,-encoderSpeed,encoderSpeed); // sets the velocity drive
+        driveStop();
         sleep(seconds*1000);
     }
 
