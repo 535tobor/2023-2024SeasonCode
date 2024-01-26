@@ -3,9 +3,10 @@ package org.firstinspires.ftc.teamcode.gamecode.teleop;
 import static com.qualcomm.hardware.rev.RevHubOrientationOnRobot.LogoFacingDirection.UP;
 import static com.qualcomm.hardware.rev.RevHubOrientationOnRobot.UsbFacingDirection.BACKWARD;
 import static org.firstinspires.ftc.teamcode.operations.inputs.AprilTag.initAprilTag;
-import static org.firstinspires.ftc.teamcode.operations.inputs.Camera.visionPortal;
+import static org.firstinspires.ftc.teamcode.operations.inputs.AprilTag.visionPortal;
 import static org.firstinspires.ftc.teamcode.operations.inputs.Imu.imuGet;
 import static org.firstinspires.ftc.teamcode.operations.inputs.Imu.imuReset;
+import static org.firstinspires.ftc.teamcode.operations.inputs.Target_inputs.cameraConnected;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.forwardMotors;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.mapMotors;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Mecanum.dpadMovements;
@@ -41,7 +42,7 @@ public class DriverControlled extends Target_operations {
         // this is commented because it might show an error sense this motor is not configured and can't be because the motor is not yet connected.
         // ConfigureMotorPixel.mapMotor("pixel");
         imuGet(hardwareMap, DeviceNames.DEFAULT_IMU.hardwareMapName(), UP.name(), BACKWARD.name());
-        initAprilTag(hardwareMap, DeviceNames.DEFAULT_CAMERA.hardwareMapName());
+        initAprilTag(hardwareMap, DeviceNames.DEFAULT_CAMERA.hardwareMapName(), telemetry);
 
         // ConfigureMotorPixel.mapMotor(hardwareMap, "pixel");
         // PixelMotorMovements.motorEncoder(); // pixel motor not connected
@@ -87,7 +88,9 @@ public class DriverControlled extends Target_operations {
 
     @Override
     public void runStop() {
-        visionPortal.close();
+        if (cameraConnected) {
+            visionPortal.close();
+        }
         driveStop(); // stops all robot movements an slams on the breaks
 
     }
