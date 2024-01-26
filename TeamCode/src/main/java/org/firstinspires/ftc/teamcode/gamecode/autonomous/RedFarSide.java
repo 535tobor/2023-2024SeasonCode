@@ -45,12 +45,19 @@ public class RedFarSide extends Target_operations {
 
     @Override
     public void runStart() {
+        // guess that team prop is in middle
+        forwardAuto(30,3,500);
+        backwardAuto(30,3,500);
+
+        // park
+        // grab pixel
         forwardAuto(3, 3,500); //
         strafeLeftAuto(8,3,500); //
         forwardAuto(15,3,500); //
         strafeLeftAuto(17,3,500); //
         forwardAuto(58,3,500);
         strafeRightAuto(123,3,500);
+        // let go of pixel
     }
 
     @Override

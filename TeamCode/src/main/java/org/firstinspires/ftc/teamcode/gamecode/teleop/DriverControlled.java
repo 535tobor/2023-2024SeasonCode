@@ -3,12 +3,18 @@ package org.firstinspires.ftc.teamcode.gamecode.teleop;
 import static com.qualcomm.hardware.rev.RevHubOrientationOnRobot.LogoFacingDirection.UP;
 import static com.qualcomm.hardware.rev.RevHubOrientationOnRobot.UsbFacingDirection.BACKWARD;
 import static com.qualcomm.hardware.rev.RevHubOrientationOnRobot.UsbFacingDirection.LEFT;
+import static com.qualcomm.hardware.rev.RevHubOrientationOnRobot.UsbFacingDirection.RIGHT;
 import static org.firstinspires.ftc.teamcode.operations.inputs.AprilTag.initAprilTag;
 import static org.firstinspires.ftc.teamcode.operations.inputs.AprilTag.visionPortal;
 import static org.firstinspires.ftc.teamcode.operations.inputs.Imu.imuGet;
 import static org.firstinspires.ftc.teamcode.operations.inputs.Imu.imuReset;
 import static org.firstinspires.ftc.teamcode.operations.inputs.Target_inputs.cameraConnected;
+import static org.firstinspires.ftc.teamcode.operations.inputs.Target_inputs.imu;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.bl;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.br;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.fl;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.forwardMotors;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.fr;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.mapMotors;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Mecanum.botHeading;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Mecanum.dpadMovements;
@@ -18,23 +24,31 @@ import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.def
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EachMotorSet.driveStop;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.operations.inputs.DeviceNames;
 import org.firstinspires.ftc.teamcode.operations.Target_operations;
 
 @TeleOp
 public class DriverControlled extends Target_operations {
     double speed = 0.5; // speed used when using hardcore mode
+    DistanceSensor sensorRange;
+    boolean rangePluggedIn;
 
     @Override
     public void runOpMode() {
         runInit();
+        if (isStopRequested()){runStop();}
         while(opModeInInit()){runInitLoop();}
         waitForStart();
         runStart();
         if (isStopRequested()){runStop();}
         while (opModeIsActive()) {runLoop();}
     }
+
+
 
     @Override
     public void runInit() {
@@ -44,8 +58,15 @@ public class DriverControlled extends Target_operations {
         // this is commented because it might show an error sense this motor is not configured and can't be because the motor is not yet connected.
         // ConfigureMotorPixel.mapMotor("pixel");
         // (hardwareMap, imu device name, logo, USB)
-        imuGet(hardwareMap, DeviceNames.DEFAULT_IMU.hardwareMapName(), LEFT.name(), UP.name());
+        imuGet(hardwareMap, DeviceNames.DEFAULT_IMU.hardwareMapName(), RIGHT.name(), UP.name());
         initAprilTag(hardwareMap, DeviceNames.DEFAULT_CAMERA.hardwareMapName(), telemetry);
+        try {
+            sensorRange = hardwareMap.get(DistanceSensor.class, "eye");
+            rangePluggedIn = true;
+        }
+        catch (Exception E){
+            rangePluggedIn = false;
+        }
 
         // ConfigureMotorPixel.mapMotor(hardwareMap, "pixel");
         // PixelMotorMovements.motorEncoder(); // pixel motor not connected
@@ -67,7 +88,18 @@ public class DriverControlled extends Target_operations {
 
         imuReset(gamepad1.options); // resets imu case of accidents or incidences
         fieldCentricMath(); // does the required math for Mecanum drive as well as getting imu for field centric
-        telemetry.addData("", botHeading);
+
+        telemetry.addData("bot heading: ", botHeading);
+        if (rangePluggedIn) {
+            telemetry.addData("distance ", sensorRange.getDistance(DistanceUnit.INCH));
+        }
+        telemetry.addData("position FL ", fl.getCurrentPosition());
+        telemetry.addData("position FR ", fr.getCurrentPosition());
+        telemetry.addData("position BL ", bl.getCurrentPosition());
+        telemetry.addData("position BR ", br.getCurrentPosition());
+        telemetry.addData("degrees ", imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
+        telemetry.update();
+
         //convertPowerToEncoderUse();
         //runPixelMotor(gamepad2.a);
         //runBarMotor(gamepad2.y);

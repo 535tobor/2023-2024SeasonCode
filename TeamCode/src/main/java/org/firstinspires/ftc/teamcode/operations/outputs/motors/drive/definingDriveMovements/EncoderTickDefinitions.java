@@ -19,6 +19,7 @@ public class EncoderTickDefinitions {
         drive(-encoderSpeed,-encoderSpeed,-encoderSpeed,-encoderSpeed); // sets the velocity drive
         sleep(seconds*1000);
         driveStop();
+
     }
 
     public static void backwardAuto(double inches, long seconds, int encoderSpeed) { // forward good.
@@ -29,6 +30,7 @@ public class EncoderTickDefinitions {
         drive(encoderSpeed,encoderSpeed,encoderSpeed,encoderSpeed); // sets the velocity drive
         sleep(seconds*1000);
         driveStop();
+
     }
 
     public static void strafeLeftAuto(double inches, long seconds, int encoderSpeed) { // strafe good. // this is left
@@ -39,6 +41,7 @@ public class EncoderTickDefinitions {
         drive(encoderSpeed,-encoderSpeed,-encoderSpeed,encoderSpeed); // sets the velocity drive
         sleep(seconds*1000);
         driveStop();
+
 
     }
 

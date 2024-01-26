@@ -1,35 +1,32 @@
 package org.firstinspires.ftc.teamcode.gamecode.autonomous;
 
 import static org.firstinspires.ftc.teamcode.operations.inputs.AprilTag.initAprilTag;
+import static org.firstinspires.ftc.teamcode.operations.inputs.Target_inputs.imu;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.bl;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.br;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.fl;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.forwardMotors;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.fr;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.mapMotors;
-import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.CentricMovements.fieldCentric.turn;
-import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EachMotorSet.drive;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EncoderTickDefinitions.backwardAuto;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EncoderTickDefinitions.forwardAuto;
-
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EncoderTickDefinitions.strafeLeftAuto;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EncoderTickDefinitions.strafeRightAuto;
-
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EncoderTickDefinitions.turnLeftAuto;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EncoderTickDefinitions.turnRightAuto;
 
-import com.google.firebase.crashlytics.buildtools.reloc.org.apache.commons.codec.Encoder;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
-import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.operations.Target_operations;
-import org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Wheels;
 import org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Encoders;
+import org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Wheels;
 
-@Autonomous(name="Team Props", group="auto")
-public class TeamProps extends Target_operations {
+@Autonomous(name="Blue, Board Side 2 -> Team Props", group="auto")
+public class TeamProp_Find extends Target_operations {
 
     DcMotor arm;
     DistanceSensor sensorRange;
@@ -53,10 +50,9 @@ public class TeamProps extends Target_operations {
         sensorRange = hardwareMap.get(DistanceSensor.class, "eye");
         // ^ set motor directions
         initAprilTag(hardwareMap, "Webcam 1", telemetry);
+        imu = hardwareMap.get(IMU.class, "imu");
         Encoders.use();
         Encoders.clear();
-
-
 
     }
 
@@ -65,25 +61,32 @@ public class TeamProps extends Target_operations {
 
     @Override
     public void runStart() {
-        backwardAuto(13,3,200); // away from wall.
-        turnRightAuto(580+45+22,3,500);
-// styles said 290 should = 45 degrees so 45 + 45 is 90 so 580 because 290 + 290 = 580
+        // close claw
+        forwardAuto(21,3,500);
+        if (sensorRange.getDistance(DistanceUnit.INCH) < 7) { // zone 2
+            // open claw
+        }
+        else {
+            turnLeftAuto(180*20, 3,500); // zone 1
+            if (sensorRange.getDistance(DistanceUnit.INCH) < 7) {
+                // open claw
+            }
+            else {
+                turnLeftAuto(180*20*2, 3,500);
+                forwardAuto(3,3,500);
+                // open claw
+            }
+        }
+        }
 
-        /*sleep(2500);
-        backwardAuto(5,1,500);
-        sleep(2500);
-        strafeRightAuto(3, 1,500);
-        if (sensorRange.getDistance(DistanceUnit.INCH) <= 20) {
-            backwardAuto(5,1,500);
-        }*/
-    }
+
     @Override
     public void runStop() {
         stopAll();
     }
     @Override
     public void runLoop() {
-        telemetry.addData("distance ", sensorRange.getDistance(DistanceUnit.INCH));
+
         telemetry.addData("position FL ", fl.getCurrentPosition());
         telemetry.addData("position FR ", fr.getCurrentPosition());
         telemetry.addData("position BL ", bl.getCurrentPosition());
