@@ -43,7 +43,7 @@ public class RedFarSide extends Target_operations {
 
     }
 
-    @Override //290
+    @Override
     public void runStart() {
         forwardAuto(3, 3,500); //
         strafeLeftAuto(8,3,500); //

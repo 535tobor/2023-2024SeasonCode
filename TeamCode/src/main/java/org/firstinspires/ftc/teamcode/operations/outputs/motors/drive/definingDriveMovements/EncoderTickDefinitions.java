@@ -17,12 +17,18 @@ public class EncoderTickDefinitions {
         Encoders.target(-finalTicks,-finalTicks,-finalTicks,-finalTicks); // sets target position
         Encoders.go(); // goes to target position
         drive(-encoderSpeed,-encoderSpeed,-encoderSpeed,-encoderSpeed); // sets the velocity drive
-        driveStop();
         sleep(seconds*1000);
+        driveStop();
     }
 
     public static void backwardAuto(double inches, long seconds, int encoderSpeed) { // forward good.
-        forwardAuto(-inches, seconds, -encoderSpeed);
+        int finalTicks = (int) (inches * ticksPerInch);
+        Encoders.clear(); // resets wheel encoders
+        Encoders.target(finalTicks,finalTicks,finalTicks,finalTicks); // sets target position
+        Encoders.go(); // goes to target position
+        drive(encoderSpeed,encoderSpeed,encoderSpeed,encoderSpeed); // sets the velocity drive
+        sleep(seconds*1000);
+        driveStop();
     }
 
     public static void strafeLeftAuto(double inches, long seconds, int encoderSpeed) { // strafe good. // this is left
@@ -31,8 +37,9 @@ public class EncoderTickDefinitions {
         Encoders.target(finalTicks,-finalTicks,-finalTicks,finalTicks); // sets target position
         Encoders.go(); // goes to target position // fl, fr, bl, br
         drive(encoderSpeed,-encoderSpeed,-encoderSpeed,encoderSpeed); // sets the velocity drive
-        driveStop();
         sleep(seconds*1000);
+        driveStop();
+
     }
 
     public static void strafeRightAuto(double inches, long seconds, int encoderSpeed) { // strafe good. // this is left
@@ -45,8 +52,8 @@ public class EncoderTickDefinitions {
         Encoders.target(-finalTicks,finalTicks,-finalTicks,finalTicks); // sets target position
         Encoders.go(); // goes to target position // fl, fr, bl, br
         drive(-encoderSpeed,encoderSpeed,-encoderSpeed,encoderSpeed); // sets the velocity drive
-        driveStop();
         sleep(seconds*1000);
+        driveStop();
     }
 
     public static void turnLeftAuto(float degrees, long seconds, int encoderSpeed) { // turn

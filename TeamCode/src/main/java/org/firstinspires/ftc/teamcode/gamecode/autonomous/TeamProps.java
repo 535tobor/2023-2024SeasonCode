@@ -50,10 +50,12 @@ public class TeamProps extends Target_operations {
         //arm = hardwareMap.dcMotor.get("arm");
         mapMotors(hardwareMap, Wheels.FRONT_LEFT.abbreviation(),Wheels.FRONT_RIGHT.abbreviation(),Wheels.BACK_LEFT.abbreviation(),Wheels.BACK_RIGHT.abbreviation());
         forwardMotors(true,false,true,false);
+        sensorRange = hardwareMap.get(DistanceSensor.class, "eye");
         // ^ set motor directions
         initAprilTag(hardwareMap, "Webcam 1", telemetry);
-        sensorRange = hardwareMap.get(DistanceSensor.class, "color");
+        Encoders.use();
         Encoders.clear();
+
 
 
     }
@@ -63,13 +65,10 @@ public class TeamProps extends Target_operations {
 
     @Override
     public void runStart() {
-        backwardAuto(5,1,500); // away from wall.
-        sleep(2000);
-        turnRightAuto(800, 1, 500); // straighten out.
-        sleep(2000);
-        forwardAuto(5,1,500);
-        sleep(2000);
-        strafeRightAuto(5,1,500);
+        backwardAuto(13,3,200); // away from wall.
+        turnRightAuto(580+45+22,3,500);
+// styles said 290 should = 45 degrees so 45 + 45 is 90 so 580 because 290 + 290 = 580
+
         /*sleep(2500);
         backwardAuto(5,1,500);
         sleep(2500);
