@@ -8,27 +8,18 @@ import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Con
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 public class EachMotorSet {
-    public static void driveRaw(double frontLeftSpeed, double frontRightSpeed, double backLeftSpeed, double backRightSpeed) {
-        fr.setPower(frontRightSpeed);
-        fl.setPower(frontLeftSpeed);
-        br.setPower(backRightSpeed);
-        bl.setPower(backLeftSpeed);
+    public static void drive(double frontLeftSpeed, double frontRightSpeed, double backLeftSpeed, double backRightSpeed) {
+        fr.setVelocity(frontRightSpeed*1000);
+        fl.setVelocity(frontLeftSpeed*1000);
+        br.setVelocity(backRightSpeed*1000);
+        bl.setVelocity(backLeftSpeed*1000);
         // set raw power (voltage) to each motor individually
-
-    }
-
-    public static void drive(int frontLeftSpeed, int frontRightSpeed, int backLeftSpeed, int backRightSpeed) {
-        fr.setVelocity(frontRightSpeed);
-        fl.setVelocity(frontLeftSpeed);
-        br.setVelocity(backRightSpeed);
-        bl.setVelocity(backLeftSpeed);
-        // set velocity (speed) to each motor individually
 
     }
 
     public static void driveStop() {
 
-        driveRaw(0,0,0,0);
+        drive(0,0,0,0);
         fl.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         fr.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         bl.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);

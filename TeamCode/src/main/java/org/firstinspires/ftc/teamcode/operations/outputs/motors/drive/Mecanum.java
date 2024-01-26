@@ -10,7 +10,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 public class Mecanum {
 
-    static double botHeading;
+    public static double botHeading;
     static double rotX;
     static double rotY;
     static double denominator;
@@ -18,6 +18,7 @@ public class Mecanum {
 
     public static void fieldCentricMath() {
         botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
+
 
         // Rotate the movement direction counter to the bot's rotation
         rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
@@ -63,6 +64,10 @@ public class Mecanum {
         }
 
         else if (gamepad1.left_bumper) {
+            fieldCentric.turn(-speed);
+        }
+
+        else if (gamepad1.right_bumper) {
             fieldCentric.turn(speed);
         }
 

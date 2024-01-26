@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.gamecode.teleop;
 
 import static com.qualcomm.hardware.rev.RevHubOrientationOnRobot.LogoFacingDirection.UP;
 import static com.qualcomm.hardware.rev.RevHubOrientationOnRobot.UsbFacingDirection.BACKWARD;
+import static com.qualcomm.hardware.rev.RevHubOrientationOnRobot.UsbFacingDirection.LEFT;
 import static org.firstinspires.ftc.teamcode.operations.inputs.AprilTag.initAprilTag;
 import static org.firstinspires.ftc.teamcode.operations.inputs.AprilTag.visionPortal;
 import static org.firstinspires.ftc.teamcode.operations.inputs.Imu.imuGet;
@@ -9,10 +10,11 @@ import static org.firstinspires.ftc.teamcode.operations.inputs.Imu.imuReset;
 import static org.firstinspires.ftc.teamcode.operations.inputs.Target_inputs.cameraConnected;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.forwardMotors;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.mapMotors;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Mecanum.botHeading;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Mecanum.dpadMovements;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Mecanum.fieldCentricMath;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Target_drive.*;
-import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EachMotorSet.driveRaw;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EachMotorSet.drive;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EachMotorSet.driveStop;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -41,7 +43,8 @@ public class DriverControlled extends Target_operations {
         // ConfigureMotorBar.mapMotor("bar");
         // this is commented because it might show an error sense this motor is not configured and can't be because the motor is not yet connected.
         // ConfigureMotorPixel.mapMotor("pixel");
-        imuGet(hardwareMap, DeviceNames.DEFAULT_IMU.hardwareMapName(), UP.name(), BACKWARD.name());
+        // (hardwareMap, imu device name, logo, USB)
+        imuGet(hardwareMap, DeviceNames.DEFAULT_IMU.hardwareMapName(), LEFT.name(), UP.name());
         initAprilTag(hardwareMap, DeviceNames.DEFAULT_CAMERA.hardwareMapName(), telemetry);
 
         // ConfigureMotorPixel.mapMotor(hardwareMap, "pixel");
@@ -64,12 +67,13 @@ public class DriverControlled extends Target_operations {
 
         imuReset(gamepad1.options); // resets imu case of accidents or incidences
         fieldCentricMath(); // does the required math for Mecanum drive as well as getting imu for field centric
-
+        telemetry.addData("", botHeading);
+        //convertPowerToEncoderUse();
         //runPixelMotor(gamepad2.a);
         //runBarMotor(gamepad2.y);
         // just guesses to how the code might look, this part of the robot has not been built yet.
 
-        driveRaw(frontLeftPower,frontRightPower,backLeftPower,backRightPower);
+        drive(frontLeftPower,frontRightPower,backLeftPower,backRightPower);
         // sets each motor to the speed given by the waypoints method
         // odometer will fix issues with the robot not moving directly forward.
         // ^ this is not a problem for TeleOp, but is a problem in autonomous.
