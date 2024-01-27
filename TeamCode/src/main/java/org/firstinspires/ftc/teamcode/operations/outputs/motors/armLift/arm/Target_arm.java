@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.armLift.arm;
+package org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.arm;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 

@@ -23,8 +23,8 @@ import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Tar
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Target_drive.frontRightPower;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EachMotorSet.drive;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EachMotorSet.driveStop;
-import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.armLift.arm.armMovements.armSet;
-import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.armLift.arm.rotateButtons.armUseWithGamepad;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.arm.armMovements.armSet;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.arm.rotateButtons.armUseWithGamepad;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.claw.openCloseButtons.clawUseWithGamepad;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -34,7 +34,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.operations.Target_operations;
 import org.firstinspires.ftc.teamcode.operations.inputs.DeviceNames;
-import org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.armLift.arm.ConfigureArm;
+import org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.arm.ConfigureArm;
 import org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.claw.ConfigureClaw;
 
 @TeleOp

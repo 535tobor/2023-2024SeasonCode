@@ -1,6 +1,6 @@
-package org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.armLift.arm;
+package org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.arm;
 
-import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.armLift.arm.Target_arm.arm;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.arm.Target_arm.arm;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 
