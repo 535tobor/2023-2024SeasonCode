@@ -8,6 +8,10 @@ import static org.firstinspires.ftc.teamcode.operations.inputs.Imu.imuGet;
 import static org.firstinspires.ftc.teamcode.operations.inputs.Imu.imuReset;
 import static org.firstinspires.ftc.teamcode.operations.inputs.Target_inputs.cameraConnected;
 import static org.firstinspires.ftc.teamcode.operations.inputs.Target_inputs.imu;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.arm.armButtons.armUseWithGamepad;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.arm.armMovements.armSet;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.shaft.shaftButtons.shaftUseWithGamepad;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.shaft.shaftMovements.shaftSet;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.bl;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.br;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.fl;
@@ -23,8 +27,6 @@ import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Tar
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Target_drive.frontRightPower;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EachMotorSet.drive;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EachMotorSet.driveStop;
-import static org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.arm.armMovements.armSet;
-import static org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.arm.rotateButtons.armUseWithGamepad;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.claw.openCloseButtons.clawUseWithGamepad;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -35,6 +37,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.operations.Target_operations;
 import org.firstinspires.ftc.teamcode.operations.inputs.DeviceNames;
 import org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.arm.ConfigureArm;
+import org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.shaft.ConfigureShaft;
 import org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.claw.ConfigureClaw;
 
 @TeleOp
@@ -61,6 +64,7 @@ public class DriverControlled extends Target_operations {
         mapMotors(hardwareMap, "fl","fr","bl","br");
         ConfigureArm.mapMotor(hardwareMap);
         ConfigureClaw.mapServo(hardwareMap);
+        ConfigureShaft.mapMotor(hardwareMap);
         forwardMotors(false,true,false,true);
         imuGet(hardwareMap, DeviceNames.DEFAULT_IMU.hardwareMapName(), RIGHT.name(), UP.name());
         initAprilTag(hardwareMap, DeviceNames.DEFAULT_CAMERA.hardwareMapName(), telemetry);
@@ -73,6 +77,9 @@ public class DriverControlled extends Target_operations {
         }
 
         armSet();
+        shaftSet();
+        shaftSet();
+
     }
 
     @Override
@@ -109,6 +116,7 @@ public class DriverControlled extends Target_operations {
 
         clawUseWithGamepad(gamepad2); // using the claw (open/close)
         armUseWithGamepad(gamepad2); // using the arm (rotation)
+        shaftUseWithGamepad(gamepad2); // using the shaft/lift (up/down)
         drive(frontLeftPower,frontRightPower,backLeftPower,backRightPower);
         // sets each motor to the encoder counts given by the waypoints method
 

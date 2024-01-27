@@ -16,8 +16,8 @@ public class shaftMovements {
         shaft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
-    public static void rotateShaft(int rotateAmount, double power) {
-        shaft.setTargetPosition(rotateAmount);
+    public static void moveShaft(int moveAmount, double power) {
+        shaft.setTargetPosition(moveAmount);
         shaft.setPower(20*power);
         shaft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
