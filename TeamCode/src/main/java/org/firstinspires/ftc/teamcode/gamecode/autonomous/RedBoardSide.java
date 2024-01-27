@@ -7,16 +7,16 @@ import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Con
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.forwardMotors;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.fr;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.mapMotors;
-import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EachMotorSet.drive;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EncoderTickDefinitions.backwardAuto;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EncoderTickDefinitions.forwardAuto;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EncoderTickDefinitions.strafeLeftAuto;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EncoderTickDefinitions.strafeRightAuto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.operations.Target_operations;
-import org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Wheels;
 import org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Encoders;
+import org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Wheels;
 
 @Autonomous(name="Red, Board Side", group="auto")
 public class RedBoardSide extends Target_operations {
@@ -50,6 +50,7 @@ public class RedBoardSide extends Target_operations {
     @Override
     public void runStart() {
         // guess that team prop is in middle
+        strafeRightAuto(3,2,500); // away from rigging
         forwardAuto(30,3,500);
         backwardAuto(30,3,500);
 

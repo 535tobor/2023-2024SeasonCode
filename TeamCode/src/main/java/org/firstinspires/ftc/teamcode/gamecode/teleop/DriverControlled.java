@@ -1,8 +1,6 @@
 package org.firstinspires.ftc.teamcode.gamecode.teleop;
 
 import static com.qualcomm.hardware.rev.RevHubOrientationOnRobot.LogoFacingDirection.UP;
-import static com.qualcomm.hardware.rev.RevHubOrientationOnRobot.UsbFacingDirection.BACKWARD;
-import static com.qualcomm.hardware.rev.RevHubOrientationOnRobot.UsbFacingDirection.LEFT;
 import static com.qualcomm.hardware.rev.RevHubOrientationOnRobot.UsbFacingDirection.RIGHT;
 import static org.firstinspires.ftc.teamcode.operations.inputs.AprilTag.initAprilTag;
 import static org.firstinspires.ftc.teamcode.operations.inputs.AprilTag.visionPortal;
@@ -19,17 +17,25 @@ import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Con
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Mecanum.botHeading;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Mecanum.dpadMovements;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Mecanum.fieldCentricMath;
-import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Target_drive.*;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Target_drive.backLeftPower;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Target_drive.backRightPower;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Target_drive.frontLeftPower;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Target_drive.frontRightPower;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EachMotorSet.drive;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EachMotorSet.driveStop;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.armLift.arm.armMovements.armSet;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.armLift.arm.rotateButtons.armUseWithGamepad;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.claw.openCloseButtons.clawUseWithGamepad;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-import org.firstinspires.ftc.teamcode.operations.inputs.DeviceNames;
 import org.firstinspires.ftc.teamcode.operations.Target_operations;
+import org.firstinspires.ftc.teamcode.operations.inputs.DeviceNames;
+import org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.armLift.arm.ConfigureArm;
+import org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.claw.ConfigureClaw;
 
 @TeleOp
 public class DriverControlled extends Target_operations {
@@ -53,23 +59,20 @@ public class DriverControlled extends Target_operations {
     @Override
     public void runInit() {
         mapMotors(hardwareMap, "fl","fr","bl","br");
+        ConfigureArm.mapMotor(hardwareMap);
+        ConfigureClaw.mapServo(hardwareMap);
         forwardMotors(false,true,false,true);
-        // ConfigureMotorBar.mapMotor("bar");
-        // this is commented because it might show an error sense this motor is not configured and can't be because the motor is not yet connected.
-        // ConfigureMotorPixel.mapMotor("pixel");
-        // (hardwareMap, imu device name, logo, USB)
         imuGet(hardwareMap, DeviceNames.DEFAULT_IMU.hardwareMapName(), RIGHT.name(), UP.name());
         initAprilTag(hardwareMap, DeviceNames.DEFAULT_CAMERA.hardwareMapName(), telemetry);
         try {
             sensorRange = hardwareMap.get(DistanceSensor.class, "eye");
             rangePluggedIn = true;
         }
-        catch (Exception E){
+        catch (Exception e){
             rangePluggedIn = false;
         }
 
-        // ConfigureMotorPixel.mapMotor(hardwareMap, "pixel");
-        // PixelMotorMovements.motorEncoder(); // pixel motor not connected
+        armSet();
     }
 
     @Override
@@ -84,15 +87,18 @@ public class DriverControlled extends Target_operations {
     public void runLoop() {
 
         dpadMovements(gamepad1, speed); // sets waypoints to the d_pads's positions
-        // calling the joystickMovements method is not needed here because the program calls that method if there is no input found within the dpadMovements method
+
 
         imuReset(gamepad1.options); // resets imu case of accidents or incidences
         fieldCentricMath(); // does the required math for Mecanum drive as well as getting imu for field centric
 
         telemetry.addData("bot heading: ", botHeading);
+
+        // only display the distance sensor if it is plugged in
         if (rangePluggedIn) {
             telemetry.addData("distance ", sensorRange.getDistance(DistanceUnit.INCH));
         }
+
         telemetry.addData("position FL ", fl.getCurrentPosition());
         telemetry.addData("position FR ", fr.getCurrentPosition());
         telemetry.addData("position BL ", bl.getCurrentPosition());
@@ -100,25 +106,11 @@ public class DriverControlled extends Target_operations {
         telemetry.addData("degrees ", imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
         telemetry.update();
 
-        //convertPowerToEncoderUse();
-        //runPixelMotor(gamepad2.a);
-        //runBarMotor(gamepad2.y);
-        // just guesses to how the code might look, this part of the robot has not been built yet.
 
+        clawUseWithGamepad(gamepad2); // using the claw (open/close)
+        armUseWithGamepad(gamepad2); // using the arm (rotation)
         drive(frontLeftPower,frontRightPower,backLeftPower,backRightPower);
-        // sets each motor to the speed given by the waypoints method
-        // odometer will fix issues with the robot not moving directly forward.
-        // ^ this is not a problem for TeleOp, but is a problem in autonomous.
-
-        /* if (gamepad2.a) {
-
-            PixelMotorMovements.rotate(100, 1);
-        }
-        else {
-            PixelMotorMovements.rotate(100, 0);
-        }
-
-         */
+        // sets each motor to the encoder counts given by the waypoints method
 
     }
 

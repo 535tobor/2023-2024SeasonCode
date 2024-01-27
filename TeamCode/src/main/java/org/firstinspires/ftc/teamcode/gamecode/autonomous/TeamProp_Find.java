@@ -8,14 +8,13 @@ import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Con
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.forwardMotors;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.fr;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.mapMotors;
-import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EncoderTickDefinitions.backwardAuto;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EncoderTickDefinitions.forwardAuto;
-import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EncoderTickDefinitions.strafeLeftAuto;
-import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EncoderTickDefinitions.strafeRightAuto;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EncoderTickDefinitions.turnLeftAuto;
-import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EncoderTickDefinitions.turnRightAuto;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.claw.clawMovements.closeClawSet;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.claw.clawMovements.openClawSet;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.IMU;
@@ -26,6 +25,7 @@ import org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Encoders;
 import org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Wheels;
 
 @Autonomous(name="Blue, Board Side 2 -> Team Props", group="auto")
+@Disabled // test
 public class TeamProp_Find extends Target_operations {
 
     DcMotor arm;
@@ -61,20 +61,20 @@ public class TeamProp_Find extends Target_operations {
 
     @Override
     public void runStart() {
-        // close claw
+        closeClawSet();
         forwardAuto(21,3,500);
         if (sensorRange.getDistance(DistanceUnit.INCH) < 7) { // zone 2
-            // open claw
+            openClawSet();
         }
         else {
             turnLeftAuto(180*20, 3,500); // zone 1
             if (sensorRange.getDistance(DistanceUnit.INCH) < 7) {
-                // open claw
+                openClawSet();
             }
             else {
                 turnLeftAuto(180*20*2, 3,500);
                 forwardAuto(3,3,500);
-                // open claw
+                openClawSet();
             }
         }
         }

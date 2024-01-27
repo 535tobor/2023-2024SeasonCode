@@ -46,6 +46,7 @@ public class RedFarSide extends Target_operations {
     @Override
     public void runStart() {
         // guess that team prop is in middle
+        strafeRightAuto(3,2,500); // away from rigging
         forwardAuto(30,3,500);
         backwardAuto(30,3,500);
 

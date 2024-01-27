@@ -11,6 +11,7 @@ import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Con
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EncoderTickDefinitions.forwardAuto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.IMU;
@@ -22,6 +23,7 @@ import org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Wheels;
 import org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Encoders;
 
 @Autonomous(name="Chance Program (Team Prop)", group="auto")
+@Disabled
 public class TeamProp_Guessed extends Target_operations {
 
     DcMotor arm;
