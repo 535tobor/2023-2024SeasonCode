@@ -1,0 +1,2 @@
+# Operational Layout
+> An Operational Layout is laying out the code in a way that all the code is organized in folders and classes according to operation. Within this mode each folder contains a readme.md file along with a Java class with the name 'Target_' inside every folder within the operations folder. The 'Target_' class is what holds variable information on any other root information. An Operational Layout also includes a TargetSetup in the root of the operations folder, this is an interface for when running operations.
