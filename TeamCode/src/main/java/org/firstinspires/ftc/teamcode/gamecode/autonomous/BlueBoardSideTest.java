@@ -40,12 +40,23 @@ import org.firstinspires.ftc.teamcode.operations.inputs.TouchSensorButton;
 import org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Encoders;
 import org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Wheels;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 @Autonomous(name="Blue, Board Side (TEST)", group="auto")
 public class BlueBoardSideTest extends Target_operations {
     boolean hasBeenPressed = false;
     Orientation direction;
     private static int teamprop = 0;
     private static boolean found = false;
+    private static double distanceUse = 0;
+    private static double storedDistance = 0;
     // and save the heading
     double botHeading;
     double botTargetHeading;
@@ -89,6 +100,8 @@ public class BlueBoardSideTest extends Target_operations {
 
     @Override
     public void runInitLoop() {
+        telemetry.addData("found: ", sensorRange.getDistance(DistanceUnit.INCH));
+        telemetry.update();
 
         openClaw();
         if (button.isPressed() && !hasBeenPressed) {
@@ -106,18 +119,23 @@ public class BlueBoardSideTest extends Target_operations {
 
     @Override
     public void runStart() {
+        telemetry.addData("found: ", sensorRange.getDistance(DistanceUnit.INCH));
+        telemetry.update();
         int scanTimes = 0;
-
+        found = false;
         while (!found) {
             telemetry.addData("teamprop",teamprop);
             telemetry.addData("distance",sensorRange.getDistance(DistanceUnit.INCH));
             telemetry.update();
             scanTimes += 1;
-            if (sensorRange.getDistance(DistanceUnit.INCH) < 26) {
+            // if something is found under 26 inches than it must be the team prop
+            if (sensorRange.getDistance(DistanceUnit.INCH) < 35) {
                 teamprop = 2;
                 found = true;
             }
-            if (scanTimes == 50) {
+            // if after 20 scans there is no team prop found then give up and move on to the next tape
+            if (scanTimes >= 50) {
+                teamprop = 0;
                 found = true;
             }
         }
@@ -125,24 +143,69 @@ public class BlueBoardSideTest extends Target_operations {
         telemetry.addData("distance",sensorRange.getDistance(DistanceUnit.INCH));
         telemetry.update();
 
-        sleep(5000);
         closeClaw(); // close
-        sleep(3000);
-        // guess that team prop is in middle
+        sleep(500);
+        // lift arm above ground, holding 1 pixel
         rotateArm(400, 1);
-        sleep(2000);
+        sleep(1000);
 
 
-        if (teamprop == 2) {
+        if (teamprop == 2) { // if the middle team prop is found then go to it and drop the pixel
             telemetry.addData("", "found!");
-            forwardAuto(25, 5, 800);
+            telemetry.addData("teamprop",teamprop);
+            telemetry.addData("distance",sensorRange.getDistance(DistanceUnit.INCH));
+            telemetry.update();
+            forwardAuto(27, 5, 800);
             openClaw();
+
+
         }
+
 
         else {
+            scanTimes = 0;
+            found = false;
+            // if the middle team prop is not found then search for the team prop on zone 1
+            strafeLeftAuto(10,1,800);
             /*turnLeftAuto(500 * 3, 2, 500); // 90 degrees
             openClaw();*/
+
+            while (!found) {
+                telemetry.addData("teamprop",teamprop);
+                telemetry.addData("distance",sensorRange.getDistance(DistanceUnit.INCH));
+                telemetry.update();
+                scanTimes += 1;
+                // if something is found under 26 inches than it must be the team prop
+                if (sensorRange.getDistance(DistanceUnit.INCH) < 35) {
+                    teamprop = 1;
+                    found = true;
+                }
+                // if after 20 scans there is no team prop found then give up and move on to the next tape
+                if (scanTimes >= 50) {
+                    teamprop = 0;
+                    found = true;
+                }
+            }
+
+            if (teamprop == 1) {
+                telemetry.addData("", "found!");
+                telemetry.addData("teamprop",teamprop);
+                telemetry.addData("distance",sensorRange.getDistance(DistanceUnit.INCH));
+                telemetry.update();
+                forwardAuto(23, 5, 800);
+                strafeLeftAuto(5,1,800);
+                openClaw();
+            }
+
+            else {
+                strafeRightAuto(10,1,800);
+                forwardAuto(27, 5, 800);
+                strafeLeftAuto(5,1,800);
+                turnRightAuto(500 * 3,1,800);
+                openClaw();
+            }
         }
+        strafeLeftAuto(40,2,1000);
         }
 
         /*if (sensorRange.getDistance(DistanceUnit.INCH) < 9) {

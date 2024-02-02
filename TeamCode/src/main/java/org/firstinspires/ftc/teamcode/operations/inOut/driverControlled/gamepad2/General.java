@@ -16,7 +16,7 @@ public class General {
         shaft.setPower(gamepad2.right_stick_y);
 
         if (button.isPressed()) {
-            arm.setPower(-0.1);
+            arm.setPower(-0.5);
         }
         else {
             arm.setPower(gamepad2.left_stick_y);
