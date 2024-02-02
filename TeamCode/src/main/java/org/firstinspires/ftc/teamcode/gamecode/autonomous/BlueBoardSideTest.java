@@ -157,6 +157,7 @@ public class BlueBoardSideTest extends Target_operations {
             telemetry.update();
             forwardAuto(27, 5, 800);
             openClaw();
+            strafeLeftAuto(45,2,1000);
 
 
         }
@@ -195,17 +196,19 @@ public class BlueBoardSideTest extends Target_operations {
                 forwardAuto(23, 5, 800);
                 strafeLeftAuto(5,1,800);
                 openClaw();
+                strafeLeftAuto(40,2,1000);
             }
 
             else {
+                // zone 3
                 strafeRightAuto(10,1,800);
                 forwardAuto(27, 5, 800);
                 strafeLeftAuto(5,1,800);
                 turnRightAuto(500 * 3,1,800);
                 openClaw();
+                backwardAuto(50,2,1000);
             }
         }
-        strafeLeftAuto(40,2,1000);
         }
 
         /*if (sensorRange.getDistance(DistanceUnit.INCH) < 9) {
