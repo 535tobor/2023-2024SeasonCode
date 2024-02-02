@@ -27,8 +27,8 @@ import org.firstinspires.ftc.teamcode.operations.Target_operations;
 import org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Encoders;
 import org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Wheels;
 
-@Autonomous(name="Red, Board Side", group="auto")
-public class RedBoardSide extends Target_operations {
+@Autonomous(name="Red, Board Side Guess", group="guess")
+public class RedBoardSideGuess extends Target_operations {
     @Override
     public void runOpMode() {
 

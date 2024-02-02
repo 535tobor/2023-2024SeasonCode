@@ -26,8 +26,8 @@ import org.firstinspires.ftc.teamcode.operations.Target_operations;
 import org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Encoders;
 import org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Wheels;
 
-@Autonomous(name="Blue, Far Side", group="auto")
-public class BlueFarSide extends Target_operations {
+@Autonomous(name="Blue, Far Side Guess", group="guess")
+public class BlueFarSideGuess extends Target_operations {
 
     double inches;
     @Override
