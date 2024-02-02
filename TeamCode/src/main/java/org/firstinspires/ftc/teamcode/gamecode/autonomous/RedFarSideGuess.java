@@ -27,6 +27,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.operations.Target_operations;
+import org.firstinspires.ftc.teamcode.operations.inputs.TouchSensorButton;
 import org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Encoders;
 import org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Wheels;
 
@@ -74,6 +75,8 @@ public class RedFarSideGuess extends Target_operations {
         br.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         shaft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        TouchSensorButton.mapDigital(hardwareMap); // button
+
     }
 
     @Override
