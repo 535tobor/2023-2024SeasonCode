@@ -1,0 +1,2 @@
+# assets
+The assets folder is where asset files are held. One example of this is the toborprops.tflite file, a tensor flow file for detecting the team props. Any other .tflite files can go here, other assets for the season code can go here as well.
