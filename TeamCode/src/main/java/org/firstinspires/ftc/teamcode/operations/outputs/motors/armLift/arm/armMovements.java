@@ -17,9 +17,9 @@ public class armMovements {
         arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
-    public static void rotateArm(int rotateAmount, double speed) {
-        arm.setTargetPosition(rotateAmount);
-        arm.setPower(speed);
+    public static void rotateArm(int rotateAmount, double power) {
+        arm.setTargetPosition(rotateAmount*-1);
+        arm.setPower(power*-1);
         arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 }

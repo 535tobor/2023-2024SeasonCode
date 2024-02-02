@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.gamecode.tests;
 
 import static org.firstinspires.ftc.teamcode.operations.inputs.AprilTag.initAprilTag;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.arm.Target_arm.arm;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.arm.armMovements.rotateArm;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.forwardMotors;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.mapMotors;
 
@@ -13,7 +14,7 @@ import org.firstinspires.ftc.teamcode.operations.Target_operations;
 import org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Encoders;
 import org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Wheels;
 
-@Autonomous(name="Arm Test", group="auto")
+@Autonomous(name="Arm Test", group="test")
 public class ArmTest extends Target_operations {
 
     @Override
@@ -35,7 +36,7 @@ public class ArmTest extends Target_operations {
         // ^ set motor directions
         initAprilTag(hardwareMap, "Webcam 1", telemetry);
         Encoders.clear();
-        arm = hardwareMap.get(DcMotorEx.class, "extend");
+        arm = hardwareMap.get(DcMotorEx.class, "arm");
     }
 
     @Override
@@ -46,12 +47,7 @@ public class ArmTest extends Target_operations {
     @Override
     public void runStart() {
 
-        arm.setPower(-1);
-        telemetry.addData("", arm.getPortNumber());
-        sleep(2000);
-        arm.setPower(1);
-        telemetry.addData("", arm.getPortNumber());
-
+        rotateArm(-10000,-1);
     }
 
     @Override

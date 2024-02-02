@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 public class ConfigureArm {
 
     public static void mapMotor (HardwareMap hardwareMap) {
-        arm = (DcMotorEx) hardwareMap.dcMotor.get("extend");
+        arm = (DcMotorEx) hardwareMap.dcMotor.get("arm");
     }
 
 }

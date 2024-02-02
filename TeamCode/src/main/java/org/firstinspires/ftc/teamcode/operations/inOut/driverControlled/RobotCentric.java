@@ -8,6 +8,7 @@ import static org.firstinspires.ftc.teamcode.operations.inputs.AprilTag.initApri
 import static org.firstinspires.ftc.teamcode.operations.inputs.Imu.imuGet;
 import static org.firstinspires.ftc.teamcode.operations.inputs.Imu.imuReset;
 import static org.firstinspires.ftc.teamcode.operations.inputs.Target_inputs.imu;
+import static org.firstinspires.ftc.teamcode.operations.inputs.TouchSensorButton.button;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.arm.Target_arm.arm;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.shaft.Target_shaft.shaft;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.bl;
@@ -25,8 +26,6 @@ import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Tar
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Target_drive.frontRightPower;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EachMotorSet.drive;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.claw.Target_claw.claw;
-import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.claw.clawMovements.clawClose;
-import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.claw.clawMovements.clawOpen;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.claw.clawMovements.closeClaw;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -40,6 +39,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.operations.inputs.DeviceNames;
+import org.firstinspires.ftc.teamcode.operations.inputs.TouchSensorButton;
 import org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.arm.ConfigureArm;
 import org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.shaft.ConfigureShaft;
 import org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.claw.ConfigureClaw;
@@ -58,9 +58,10 @@ public class RobotCentric {
         initAprilTag(hardwareMap, DeviceNames.DEFAULT_CAMERA.hardwareMapName(), telemetry);
         sensorRange = hardwareMap.get(DistanceSensor.class, "left_eye");
 
-        arm = hardwareMap.get(DcMotorEx.class, "extend");
+        arm = hardwareMap.get(DcMotorEx.class, "arm");
         shaft = hardwareMap.get(DcMotor.class, "shaft");
         claw = hardwareMap.get(Servo.class, "claw");
+        TouchSensorButton.mapDigital(hardwareMap); // button
 
         arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
@@ -68,8 +69,7 @@ public class RobotCentric {
     public static void runLoopRobotCentric(Telemetry telemetry, Gamepad gamepad1, Gamepad gamepad2, double speed){
         telemetry.addData("claw: ",claw.getPosition());
         telemetry.addData("Distance in Inches: ",sensorRange.getDistance(DistanceUnit.INCH));
-        telemetry.addData("close claw ",clawClose);
-        telemetry.addData("open claw ",clawOpen);
+        telemetry.addData("touch sensor", button.isPressed());
         dpadMovements(gamepad1, speed); // sets waypoints to the d_pads's positions
 
 

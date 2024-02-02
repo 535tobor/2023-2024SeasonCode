@@ -51,7 +51,7 @@ public class RedFarSide extends Target_operations {
 
         sensorRange = hardwareMap.get(DistanceSensor.class, "left_eye");
 
-        arm = hardwareMap.get(DcMotorEx.class, "extend");
+        arm = hardwareMap.get(DcMotorEx.class, "arm");
         shaft = hardwareMap.get(DcMotor.class, "shaft");
         claw = hardwareMap.get(Servo.class, "claw");
 

@@ -7,6 +7,7 @@ import static org.firstinspires.ftc.teamcode.operations.inOut.driverControlled.R
 import static org.firstinspires.ftc.teamcode.operations.inputs.AprilTag.initAprilTag;
 import static org.firstinspires.ftc.teamcode.operations.inputs.Imu.imuGet;
 import static org.firstinspires.ftc.teamcode.operations.inputs.Target_inputs.imu;
+import static org.firstinspires.ftc.teamcode.operations.inputs.TouchSensorButton.button;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.arm.Target_arm.arm;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.arm.armMovements.rotateArm;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.shaft.Target_shaft.shaft;
@@ -42,11 +43,13 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.operations.Target_operations;
 import org.firstinspires.ftc.teamcode.operations.inputs.DeviceNames;
+import org.firstinspires.ftc.teamcode.operations.inputs.TouchSensorButton;
 import org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Encoders;
 import org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Wheels;
 
 @Autonomous(name="Blue, Board Side", group="auto")
 public class BlueBoardSide extends Target_operations {
+    boolean hasBeenPressed = false;
     Orientation direction;
     private static int teamprop;
     // and save the heading
@@ -82,25 +85,37 @@ public class BlueBoardSide extends Target_operations {
 
         sensorRange = hardwareMap.get(DistanceSensor.class, "left_eye");
 
-        arm = hardwareMap.get(DcMotorEx.class, "extend");
+        arm = hardwareMap.get(DcMotorEx.class, "arm");
         shaft = hardwareMap.get(DcMotor.class, "shaft");
         claw = hardwareMap.get(Servo.class, "claw");
+        TouchSensorButton.mapDigital(hardwareMap); // button
 
 
     }
 
     @Override
     public void runInitLoop() {
+
         openClaw();
+        if (button.isPressed() && !hasBeenPressed) {
+            arm.setPower(-0.1);
+            hasBeenPressed = true;
+        }
+        else if (hasBeenPressed) {
+            arm.setPower(0);
+            arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        }
+        else {
+            arm.setPower(0.5);
+        }
     }
 
     @Override
     public void runStart() {
-
         closeClaw(); // close
-        sleep(2000);
+        sleep(3000);
         // guess that team prop is in middle
-        rotateArm(-200, -20);
+        rotateArm(320, 1);
         sleep(2000);
 
 
