@@ -115,7 +115,7 @@ public class BlueBoardSide extends Target_operations {
         closeClaw(); // close
         sleep(3000);
         // guess that team prop is in middle
-        rotateArm(320, 1);
+        rotateArm(600, 1);
         sleep(2000);
 
 
