@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.gamecode.autonomous;
 
 import static org.firstinspires.ftc.teamcode.operations.inOut.driverControlled.RobotCentric.sensorRange;
 import static org.firstinspires.ftc.teamcode.operations.inputs.AprilTag.initAprilTag;
+import static org.firstinspires.ftc.teamcode.operations.inputs.TouchSensorButton.button;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.arm.Target_arm.arm;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.shaft.Target_shaft.shaft;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.bl;
@@ -15,6 +16,7 @@ import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.def
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EncoderTickDefinitions.strafeLeftAuto;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EncoderTickDefinitions.strafeRightAuto;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.claw.Target_claw.claw;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.claw.clawMovements.openClaw;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -22,12 +24,23 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.operations.Target_operations;
 import org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Encoders;
 import org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Wheels;
 
 @Autonomous(name="Red, Far Side Guess", group="guess")
 public class RedFarSideGuess extends Target_operations {
+    boolean hasBeenPressed = false;
+    Orientation direction;
+    private static int teamprop = 0;
+    private static boolean found = false;
+    private static double distanceUse = 0;
+    private static double storedDistance = 0;
+    // and save the heading
+    double botHeading;
+    double botTargetHeading;
 
     @Override
     public void runOpMode() {
@@ -65,7 +78,21 @@ public class RedFarSideGuess extends Target_operations {
 
     @Override
     public void runInitLoop() {
+        telemetry.addData("found: ", sensorRange.getDistance(DistanceUnit.INCH));
+        telemetry.update();
 
+        openClaw();
+        if (button.isPressed() && !hasBeenPressed) {
+            arm.setPower(-0.1);
+            hasBeenPressed = true;
+        }
+        else if (hasBeenPressed) {
+            arm.setPower(0);
+            arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        }
+        else {
+            arm.setPower(0.5);
+        }
     }
 
     @Override
