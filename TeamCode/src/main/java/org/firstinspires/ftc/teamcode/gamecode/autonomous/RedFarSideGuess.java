@@ -111,7 +111,7 @@ public class RedFarSideGuess extends Target_operations {
         strafeLeftAuto(8,3,500); //
         forwardAuto(15,3,500); //
         strafeLeftAuto(17,3,500); //
-        forwardAuto(58,4,500);
+        forwardAuto(48,4,500);
         strafeRightAuto(123,3,500);
         // let go of pixel
 

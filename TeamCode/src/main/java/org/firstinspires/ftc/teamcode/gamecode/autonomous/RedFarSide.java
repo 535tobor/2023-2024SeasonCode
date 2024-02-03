@@ -180,7 +180,7 @@ public class RedFarSide extends Target_operations {
                 telemetry.update();
                 forwardAuto(23, 5, 800);
                 strafeLeftAuto(5,1,800);
-                openClaw();
+                openClaw(0.5);
                 strafeRightAuto(5,2,1000);
                 backwardAuto(50,1,800);
             }
@@ -198,12 +198,12 @@ public class RedFarSide extends Target_operations {
         }
 
         // park
-        forwardAuto(3, 3,500); //
-        strafeLeftAuto(8,3,500); //
-        forwardAuto(15,3,500); //
-        strafeLeftAuto(17,3,500); //
-        forwardAuto(58,4,500);
-        strafeRightAuto(123,3,500);
+        forwardAuto(3, 3,800); //
+        strafeLeftAuto(8,3,800); //
+        forwardAuto(15,3,800); //
+        strafeLeftAuto(17,3,800); //
+        forwardAuto(48,4,800);
+        strafeRightAuto(123,3,1000);
         // let go of pixel
 
     }

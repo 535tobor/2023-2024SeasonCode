@@ -112,7 +112,7 @@ public class BlueFarSideGuess extends Target_operations {
         strafeRightAuto(8,3,500); //
         forwardAuto(15,3,500); //
         strafeRightAuto(17,3,500); //
-        forwardAuto(58,4,500);
+        forwardAuto(48,4,500);
         strafeLeftAuto(123,5,500);
         // let go of pixel
 

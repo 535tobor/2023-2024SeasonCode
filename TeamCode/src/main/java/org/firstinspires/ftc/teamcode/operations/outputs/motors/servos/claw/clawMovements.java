@@ -8,6 +8,10 @@ public class clawMovements {
         claw.setPosition(1); // 0.5
     }
 
+    public static void openClaw(double value) {
+        claw.setPosition(value); // 0.5
+    }
+
     public static void closeClaw() {
         claw.setPosition(0); // 0.15
     }

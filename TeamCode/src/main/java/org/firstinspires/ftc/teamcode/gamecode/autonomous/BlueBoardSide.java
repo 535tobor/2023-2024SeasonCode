@@ -186,7 +186,7 @@ public class BlueBoardSide extends Target_operations {
                 telemetry.update();
                 forwardAuto(23, 5, 800);
                 strafeLeftAuto(5,1,800);
-                openClaw();
+                openClaw(0.5);
                 strafeLeftAuto(40,2,1000);
             }
 
