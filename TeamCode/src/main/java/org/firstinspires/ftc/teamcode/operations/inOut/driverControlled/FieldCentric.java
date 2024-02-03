@@ -37,6 +37,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.operations.inputs.DeviceNames;
+import org.firstinspires.ftc.teamcode.operations.inputs.TouchSensorButton;
 import org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.arm.ConfigureArm;
 import org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.shaft.ConfigureShaft;
 import org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.claw.ConfigureClaw;
@@ -55,6 +56,7 @@ public class FieldCentric {
         arm = hardwareMap.get(DcMotorEx.class, "arm");
         shaft = hardwareMap.get(DcMotor.class, "shaft");
         claw = hardwareMap.get(Servo.class, "claw");
+        TouchSensorButton.mapDigital(hardwareMap); // button
     }
 
     public static void runLoopFieldCentric(Telemetry telemetry, Gamepad gamepad1, Gamepad gamepad2, double speed){
