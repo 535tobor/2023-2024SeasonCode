@@ -18,6 +18,7 @@ import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Con
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.mapMotors;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Mecanum.botHeading;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Mecanum.dpadMovements;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Mecanum.extraSpeed;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Mecanum.fieldCentricMath;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Target_drive.backLeftPower;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Target_drive.backRightPower;
@@ -25,6 +26,7 @@ import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Tar
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Target_drive.frontRightPower;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EachMotorSet.drive;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.claw.Target_claw.claw;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.claw.clawMovements.openClaw;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -64,7 +66,7 @@ public class FieldCentric {
         telemetry.addData("Distance in Inches: ",sensorRange.getDistance(DistanceUnit.INCH));
 
         dpadMovements(gamepad1, speed); // sets waypoints to the d_pads's positions
-
+        extraSpeed(gamepad1);
 
         imuReset(gamepad1.options); // resets imu case of accidents or incidences
         fieldCentricMath(); // does the required math for Mecanum drive as well as getting imu for field centric
@@ -87,7 +89,7 @@ public class FieldCentric {
         //clawUseWithGamepad(gamepad2); // using the claw (open/close)
         //armUseWithGamepad(gamepad2); // using the arm (rotation)
         //shaftUseWithGamepad(gamepad2); // using the shaft/lift (up/down)
-        drive(frontLeftPower,frontRightPower,backLeftPower,backRightPower);
+        drive(extraSpeed+frontLeftPower,extraSpeed+frontRightPower,extraSpeed+backLeftPower,extraSpeed+backRightPower);
         // sets each motor to the encoder counts given by the waypoints method
     }
 }

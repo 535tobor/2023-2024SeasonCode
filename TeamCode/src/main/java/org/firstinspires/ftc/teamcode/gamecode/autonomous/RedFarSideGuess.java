@@ -100,6 +100,7 @@ public class RedFarSideGuess extends Target_operations {
 
     @Override
     public void runStart() {
+        openClaw(0.5);
 
         // guess that team prop is in middle
         strafeLeftAuto(3,2,500); // away from rigging

@@ -110,6 +110,7 @@ public class BlueBoardSide extends Target_operations {
 
     @Override
     public void runStart() {
+        openClaw(0.5);
         telemetry.addData("found: ", sensorRange.getDistance(DistanceUnit.INCH));
         telemetry.update();
         int scanTimes = 0;
@@ -135,9 +136,9 @@ public class BlueBoardSide extends Target_operations {
         telemetry.update();
 
         closeClaw(); // close
-        sleep(500);
+        sleep(700);
         // lift arm above ground, holding 1 pixel
-        rotateArm(400, 1);
+        rotateArm(100, 1);
         sleep(1000);
 
 

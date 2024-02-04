@@ -19,6 +19,7 @@ import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Con
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.mapMotors;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Mecanum.botHeading;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Mecanum.dpadMovements;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Mecanum.extraSpeed;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Mecanum.robotCentricMath;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Target_drive.backLeftPower;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Target_drive.backRightPower;
@@ -70,7 +71,9 @@ public class RobotCentric {
         telemetry.addData("claw: ",claw.getPosition());
         telemetry.addData("Distance in Inches: ",sensorRange.getDistance(DistanceUnit.INCH));
         telemetry.addData("touch sensor", button.isPressed());
+
         dpadMovements(gamepad1, speed); // sets waypoints to the d_pads's positions
+        extraSpeed(gamepad1);
 
 
         imuReset(gamepad1.options); // resets imu case of accidents or incidences

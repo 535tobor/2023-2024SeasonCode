@@ -92,6 +92,7 @@ public class BlueBoardSideGuess extends Target_operations {
 
     @Override
     public void runStart() {
+        openClaw(0.5);
         // guess that team prop is in middle
         closeClaw();
         sleep(2000);

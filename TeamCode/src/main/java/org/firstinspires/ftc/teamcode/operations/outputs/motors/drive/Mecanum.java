@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 public class Mecanum {
+    public static double extraSpeed;
 
     public static double botHeading;
     static double rotX;
@@ -51,6 +52,9 @@ public class Mecanum {
         rx = RX;
     }
 
+    public static void extraSpeed(Gamepad gamepad1) {
+        extraSpeed = gamepad1.right_trigger;
+    }
     public static void dpadMovements(Gamepad gamepad1, double speed) {
         // Mecanum using the dpad, if drivers want it, its there.
         // how this works is it sets the x and y values depending on what button is pressed.

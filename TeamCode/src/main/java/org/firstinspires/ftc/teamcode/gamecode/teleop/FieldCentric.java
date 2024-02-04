@@ -5,6 +5,7 @@ import static org.firstinspires.ftc.teamcode.operations.inOut.driverControlled.F
 import static org.firstinspires.ftc.teamcode.operations.inputs.AprilTag.visionPortal;
 import static org.firstinspires.ftc.teamcode.operations.inputs.Target_inputs.cameraConnected;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EachMotorSet.driveStop;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.claw.clawMovements.openClaw;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
@@ -41,6 +42,7 @@ public class FieldCentric extends Target_operations {
 
     @Override
     public void runStart() {
+        openClaw(0.5);
         //claw.setPosition(claw.getPosition()+2000);
 
     }

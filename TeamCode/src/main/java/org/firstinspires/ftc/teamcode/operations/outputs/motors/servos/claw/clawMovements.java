@@ -5,7 +5,7 @@ import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.cl
 public class clawMovements {
 
     public static void openClaw() {
-        claw.setPosition(1); // 0.5
+        claw.setPosition(0.9); // 0.5
     }
 
     public static void openClaw(double value) {
