@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.operations.inOut.driverControlled;
 
 import static com.qualcomm.hardware.rev.RevHubOrientationOnRobot.LogoFacingDirection.UP;
 import static com.qualcomm.hardware.rev.RevHubOrientationOnRobot.UsbFacingDirection.RIGHT;
+import static org.firstinspires.ftc.teamcode.gamecode.teleop.RobotCentric.wrist;
 import static org.firstinspires.ftc.teamcode.operations.inOut.driverControlled.gamepad2.General.*;
 import static org.firstinspires.ftc.teamcode.operations.inOut.driverControlled.gamepad2.General.runLoopGamepad2;
 import static org.firstinspires.ftc.teamcode.operations.inputs.AprilTag.initAprilTag;
@@ -59,6 +60,7 @@ public class RobotCentric {
         initAprilTag(hardwareMap, DeviceNames.DEFAULT_CAMERA.hardwareMapName(), telemetry);
         sensorRange = hardwareMap.get(DistanceSensor.class, "left_eye");
 
+        wrist = hardwareMap.get(Servo.class, "wrist");
         arm = hardwareMap.get(DcMotorEx.class, "arm");
         shaft = hardwareMap.get(DcMotor.class, "shaft");
         claw = hardwareMap.get(Servo.class, "claw");
@@ -83,7 +85,7 @@ public class RobotCentric {
         runLoopGamepad2(gamepad2);
 
 
-
+        telemetry.addData("claw wrist ", wrist.getPosition());
         telemetry.addData("position FL ", fl.getCurrentPosition());
         telemetry.addData("position FR ", fr.getCurrentPosition());
         telemetry.addData("position BL ", bl.getCurrentPosition());

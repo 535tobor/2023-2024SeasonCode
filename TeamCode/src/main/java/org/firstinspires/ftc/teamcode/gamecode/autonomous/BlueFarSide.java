@@ -40,8 +40,8 @@ import org.firstinspires.ftc.teamcode.operations.inputs.TouchSensorButton;
 import org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Encoders;
 import org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Wheels;
 
-@Autonomous(name="Blue, Board Side Mega", group="mega")
-public class BlueBoardSide extends Target_operations {
+@Autonomous(name="Blue, Far Side Mega", group="mega")
+public class BlueFarSide extends Target_operations {
     boolean hasBeenPressed = false;
     Orientation direction;
     private static int teamprop = 0;
@@ -136,10 +136,7 @@ public class BlueBoardSide extends Target_operations {
         telemetry.update();
 
         closeClaw(); // close
-        sleep(700);
-        // lift arm above ground, holding 1 pixel
-        rotateArm(100, 1);
-        sleep(1000);
+        rotateArm(800, 1);
 
 
         if (teamprop == 2) { // if the middle team prop is found then go to it and drop the pixel
@@ -147,16 +144,17 @@ public class BlueBoardSide extends Target_operations {
             telemetry.addData("teamprop", teamprop);
             telemetry.addData("distance", sensorRange.getDistance(DistanceUnit.INCH));
             telemetry.update();
-            forwardAuto(26, 5, 800);
+            forwardAuto(26, 2, 1000);
             openClaw();
-            strafeLeftAuto(45, 2, 1000);
+            backwardAuto(27,1,1000);
 
 
         } else {
             scanTimes = 0;
             found = false;
             // if the middle team prop is not found then search for the team prop on zone 1
-            strafeLeftAuto(10, 1, 800);
+            forwardAuto(14,1,1000);
+            strafeRightAuto(10, 1, 1000);
             /*turnLeftAuto(500 * 3, 2, 500); // 90 degrees
             openClaw();*/
 
@@ -167,7 +165,7 @@ public class BlueBoardSide extends Target_operations {
                 scanTimes += 1;
                 // if something is found under 26 inches than it must be the team prop
                 if (sensorRange.getDistance(DistanceUnit.INCH) < 35) {
-                    teamprop = 1;
+                    teamprop = 3;
                     found = true;
                 }
                 // if after 20 scans there is no team prop found then give up and move on to the next tape
@@ -177,26 +175,40 @@ public class BlueBoardSide extends Target_operations {
                 }
             }
 
-            if (teamprop == 1) {
+            if (teamprop == 3) {
+                sleep(10000);
                 telemetry.addData("", "found!");
                 telemetry.addData("teamprop", teamprop);
                 telemetry.addData("distance", sensorRange.getDistance(DistanceUnit.INCH));
                 telemetry.update();
-                forwardAuto(23, 5, 800);
-                strafeLeftAuto(5, 1, 800);
+                forwardAuto(16, 1, 1000);
+                strafeRightAuto(5, 1, 1000);
                 openClaw(0.5);
-                strafeLeftAuto(40, 2, 1000);
+                backwardAuto(10,1,1000);
+                strafeLeftAuto(20,1,1000);
+                backwardAuto(30,1,1000);
             } else {
-                // zone 3
-                strafeRightAuto(10, 1, 800);
-                forwardAuto(27, 5, 800);
-                strafeLeftAuto(5, 1, 800);
-                turnRightAuto(500 * 3, 1, 800);
-                forwardAuto(2,1,800);
+                // zone 1
+                strafeLeftAuto(10, 1, 1000);
+                forwardAuto(17, 1, 1000);
+                strafeRightAuto(5, 1, 1000);
+                turnLeftAuto(500 * 3 / 2, 1, 1000);
+                forwardAuto(2,1,1000);
                 openClaw();
-                backwardAuto(50, 2, 1000);
+                backwardAuto(2,1,1000);
+                turnRightAuto(500 * 3, 1, 1000);
+                backwardAuto(30,1,1000);
             }
         }
+
+        // park
+        forwardAuto(3, 1,1000); //
+        strafeRightAuto(5,1,1000); //
+        forwardAuto(15,1,1000); //
+        strafeRightAuto(17,1,1000); //
+        forwardAuto(38,4,1000);
+        strafeLeftAuto(150,10,1000);
+
     }
 
     @Override

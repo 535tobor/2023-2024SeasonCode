@@ -2,12 +2,14 @@ package org.firstinspires.ftc.teamcode.operations.inOut.driverControlled;
 
 import static com.qualcomm.hardware.rev.RevHubOrientationOnRobot.LogoFacingDirection.UP;
 import static com.qualcomm.hardware.rev.RevHubOrientationOnRobot.UsbFacingDirection.RIGHT;
+import static org.firstinspires.ftc.teamcode.gamecode.teleop.RobotCentric.wrist;
 import static org.firstinspires.ftc.teamcode.operations.inOut.driverControlled.RobotCentric.sensorRange;
 import static org.firstinspires.ftc.teamcode.operations.inOut.driverControlled.gamepad2.General.runLoopGamepad2;
 import static org.firstinspires.ftc.teamcode.operations.inputs.AprilTag.initAprilTag;
 import static org.firstinspires.ftc.teamcode.operations.inputs.Imu.imuGet;
 import static org.firstinspires.ftc.teamcode.operations.inputs.Imu.imuReset;
 import static org.firstinspires.ftc.teamcode.operations.inputs.Target_inputs.imu;
+import static org.firstinspires.ftc.teamcode.operations.inputs.TouchSensorButton.button;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.arm.Target_arm.arm;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.shaft.Target_shaft.shaft;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.bl;
@@ -47,23 +49,29 @@ import org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.claw.Conf
 public class FieldCentric {
     public static void initFieldCentric(HardwareMap hardwareMap, Telemetry telemetry) {
         mapMotors(hardwareMap, "fl","fr","bl","br");
+
         ConfigureArm.mapMotor(hardwareMap);
         ConfigureClaw.mapServo(hardwareMap);
         ConfigureShaft.mapMotor(hardwareMap);
+
         forwardMotors(false,true,false,true);
         imuGet(hardwareMap, DeviceNames.DEFAULT_IMU.hardwareMapName(), RIGHT.name(), UP.name());
         initAprilTag(hardwareMap, DeviceNames.DEFAULT_CAMERA.hardwareMapName(), telemetry);
         sensorRange = hardwareMap.get(DistanceSensor.class, "left_eye");
 
+        wrist = hardwareMap.get(Servo.class, "wrist");
         arm = hardwareMap.get(DcMotorEx.class, "arm");
         shaft = hardwareMap.get(DcMotor.class, "shaft");
         claw = hardwareMap.get(Servo.class, "claw");
         TouchSensorButton.mapDigital(hardwareMap); // button
+
+        arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
     public static void runLoopFieldCentric(Telemetry telemetry, Gamepad gamepad1, Gamepad gamepad2, double speed){
         telemetry.addData("claw: ",claw.getPosition());
         telemetry.addData("Distance in Inches: ",sensorRange.getDistance(DistanceUnit.INCH));
+        telemetry.addData("touch sensor", button.isPressed());
 
         dpadMovements(gamepad1, speed); // sets waypoints to the d_pads's positions
         extraSpeed(gamepad1);
@@ -82,7 +90,7 @@ public class FieldCentric {
         telemetry.addData("position BR ", br.getCurrentPosition());
         telemetry.addData("degrees ", imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
         telemetry.addData("arm", arm.getCurrentPosition());
-        telemetry.addData("shaft", arm.getCurrentPosition());
+        telemetry.addData("shaft", shaft.getCurrentPosition());
         telemetry.update();
 
 

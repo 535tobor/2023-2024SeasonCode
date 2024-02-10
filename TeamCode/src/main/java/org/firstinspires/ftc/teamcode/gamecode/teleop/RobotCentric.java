@@ -15,12 +15,15 @@ import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.cl
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.operations.Target_operations;
 
 @TeleOp
 public class RobotCentric extends Target_operations {
+
     double speed = 0.5; // speed used when using hardcore mode
+    public static Servo wrist;
     boolean rangePluggedIn;
 
     @Override

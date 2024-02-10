@@ -40,8 +40,8 @@ import org.firstinspires.ftc.teamcode.operations.inputs.TouchSensorButton;
 import org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Encoders;
 import org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Wheels;
 
-@Autonomous(name="Blue, Board Side Mega", group="mega")
-public class BlueBoardSide extends Target_operations {
+@Autonomous(name="Red, Board Side", group="mega")
+public class RedBoardSide extends Target_operations {
     boolean hasBeenPressed = false;
     Orientation direction;
     private static int teamprop = 0;
@@ -149,14 +149,15 @@ public class BlueBoardSide extends Target_operations {
             telemetry.update();
             forwardAuto(26, 5, 800);
             openClaw();
-            strafeLeftAuto(45, 2, 1000);
-
+            // park
+            backwardAuto(26, 5, 800);
 
         } else {
             scanTimes = 0;
             found = false;
             // if the middle team prop is not found then search for the team prop on zone 1
-            strafeLeftAuto(10, 1, 800);
+            forwardAuto(8,1,10000);
+            strafeRightAuto(5, 1, 800);
             /*turnLeftAuto(500 * 3, 2, 500); // 90 degrees
             openClaw();*/
 
@@ -167,7 +168,7 @@ public class BlueBoardSide extends Target_operations {
                 scanTimes += 1;
                 // if something is found under 26 inches than it must be the team prop
                 if (sensorRange.getDistance(DistanceUnit.INCH) < 35) {
-                    teamprop = 1;
+                    teamprop = 3;
                     found = true;
                 }
                 // if after 20 scans there is no team prop found then give up and move on to the next tape
@@ -177,26 +178,39 @@ public class BlueBoardSide extends Target_operations {
                 }
             }
 
-            if (teamprop == 1) {
+            if (teamprop == 3) {
                 telemetry.addData("", "found!");
                 telemetry.addData("teamprop", teamprop);
                 telemetry.addData("distance", sensorRange.getDistance(DistanceUnit.INCH));
                 telemetry.update();
                 forwardAuto(23, 5, 800);
-                strafeLeftAuto(5, 1, 800);
-                openClaw(0.5);
-                strafeLeftAuto(40, 2, 1000);
-            } else {
-                // zone 3
                 strafeRightAuto(10, 1, 800);
-                forwardAuto(27, 5, 800);
-                strafeLeftAuto(5, 1, 800);
-                turnRightAuto(500 * 3, 1, 800);
+                openClaw(0.5);
+                // park
+                strafeLeftAuto(5,1,800);
+                backwardAuto(26, 5, 800);
+            } else {
+                // zone 1
+                strafeLeftAuto(10, 1, 800);
+                forwardAuto(25, 5, 800);
+                strafeRightAuto(5, 1, 800);
+                turnLeftAuto(500 * 3, 1, 800);
                 forwardAuto(2,1,800);
                 openClaw();
-                backwardAuto(50, 2, 1000);
+                // park
+                turnRightAuto(500 * 3,1,800);
+                backwardAuto(26, 5, 800);
             }
         }
+
+        // park
+        forwardAuto(3, 3,500); //
+        strafeLeftAuto(8,3,500); //
+        forwardAuto(15,3,500); //
+        strafeLeftAuto(17,3,500); //
+        forwardAuto(48,4,500);
+        strafeRightAuto(123,5,500);
+
     }
 
     @Override

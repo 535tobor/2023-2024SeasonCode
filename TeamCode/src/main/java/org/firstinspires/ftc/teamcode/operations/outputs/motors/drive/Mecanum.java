@@ -53,7 +53,15 @@ public class Mecanum {
     }
 
     public static void extraSpeed(Gamepad gamepad1) {
-        extraSpeed = gamepad1.right_trigger;
+        // if robot goes forward then make speed a higher positave
+        if (frontLeftPower > 0 && frontRightPower > 0 && backLeftPower > 0 && backRightPower > 0) {
+            extraSpeed = gamepad1.right_trigger; // + positive
+        }
+
+        // if robot goes backwards then make speed a higher negative
+        else if (frontLeftPower < 0 && frontRightPower < 0 && backLeftPower < 0 && backRightPower < 0) {
+            extraSpeed = gamepad1.right_trigger*-1; // - negative
+        }
     }
     public static void dpadMovements(Gamepad gamepad1, double speed) {
         // Mecanum using the dpad, if drivers want it, its there.
