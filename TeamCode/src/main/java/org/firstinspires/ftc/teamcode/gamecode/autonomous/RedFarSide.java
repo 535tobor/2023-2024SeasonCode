@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.gamecode.autonomous;
 
-import static org.firstinspires.ftc.teamcode.operations.inOut.driverControlled.RobotCentric.sensorRange;
+import static org.firstinspires.ftc.teamcode.operations.inOut.Configs.mapOtherThings;
+import static org.firstinspires.ftc.teamcode.operations.inOut.Configs.sensorRange;
 import static org.firstinspires.ftc.teamcode.operations.inputs.AprilTag.initAprilTag;
 import static org.firstinspires.ftc.teamcode.operations.inputs.TouchSensorButton.button;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.arm.Target_arm.arm;
@@ -67,11 +68,7 @@ public class RedFarSide extends Target_operations {
         initAprilTag(hardwareMap, "Webcam 1", telemetry);
         Encoders.clear();
 
-        sensorRange = hardwareMap.get(DistanceSensor.class, "left_eye");
-
-        arm = hardwareMap.get(DcMotorEx.class, "arm");
-        shaft = hardwareMap.get(DcMotor.class, "shaft");
-        claw = hardwareMap.get(Servo.class, "claw");
+        mapOtherThings(hardwareMap);
 
         fl.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         fr.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

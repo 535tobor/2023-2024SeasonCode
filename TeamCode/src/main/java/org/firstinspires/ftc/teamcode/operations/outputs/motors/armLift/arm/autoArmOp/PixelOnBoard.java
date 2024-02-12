@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.arm.autoArmOp;
 
-import static org.firstinspires.ftc.teamcode.operations.inOut.driverControlled.RobotCentric.sensorRange;
+import static org.firstinspires.ftc.teamcode.operations.inOut.Configs.sensorRange;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.arm.armMovements.rotateArm;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.CentricMovements.fieldCentric.forward;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EachMotorSet.drive;

@@ -2,7 +2,8 @@ package org.firstinspires.ftc.teamcode.gamecode.autonomous;
 
 import static com.qualcomm.hardware.rev.RevHubOrientationOnRobot.LogoFacingDirection.UP;
 import static com.qualcomm.hardware.rev.RevHubOrientationOnRobot.UsbFacingDirection.RIGHT;
-import static org.firstinspires.ftc.teamcode.operations.inOut.driverControlled.RobotCentric.sensorRange;
+import static org.firstinspires.ftc.teamcode.operations.inOut.Configs.mapOtherThings;
+import static org.firstinspires.ftc.teamcode.operations.inOut.Configs.sensorRange;
 import static org.firstinspires.ftc.teamcode.operations.inputs.AprilTag.initAprilTag;
 import static org.firstinspires.ftc.teamcode.operations.inputs.Imu.imuGet;
 import static org.firstinspires.ftc.teamcode.operations.inputs.TouchSensorButton.button;
@@ -79,11 +80,7 @@ public class BlueFarSide extends Target_operations {
         initAprilTag(hardwareMap, "Webcam 1", telemetry);
         Encoders.clear();
 
-        sensorRange = hardwareMap.get(DistanceSensor.class, "left_eye");
-
-        arm = hardwareMap.get(DcMotorEx.class, "arm");
-        shaft = hardwareMap.get(DcMotor.class, "shaft");
-        claw = hardwareMap.get(Servo.class, "claw");
+        mapOtherThings(hardwareMap);
         TouchSensorButton.mapDigital(hardwareMap); // button
 
 
@@ -136,7 +133,7 @@ public class BlueFarSide extends Target_operations {
         telemetry.update();
 
         closeClaw(); // close
-        rotateArm(800, 1);
+        rotateArm(1000, 1);
 
 
         if (teamprop == 2) { // if the middle team prop is found then go to it and drop the pixel
@@ -193,21 +190,22 @@ public class BlueFarSide extends Target_operations {
                 forwardAuto(17, 1, 1000);
                 strafeRightAuto(5, 1, 1000);
                 turnLeftAuto(500 * 3 / 2, 1, 1000);
-                forwardAuto(2,1,1000);
+                forwardAuto(10,2,1000);
                 openClaw();
-                backwardAuto(2,1,1000);
+                backwardAuto(5,1,1000);
                 turnRightAuto(500 * 3, 1, 1000);
-                backwardAuto(30,1,1000);
+                backwardAuto(30,5,1000);
             }
         }
 
         // park
-        forwardAuto(3, 1,1000); //
-        strafeRightAuto(5,1,1000); //
-        forwardAuto(15,1,1000); //
-        strafeRightAuto(17,1,1000); //
-        forwardAuto(38,4,1000);
-        strafeLeftAuto(150,10,1000);
+        forwardAuto(3, 3,500); //
+        strafeLeftAuto(5,3,500);
+        strafeRightAuto(8,3,500); //
+        forwardAuto(15,3,500); //
+        strafeRightAuto(13,3,500); //
+        forwardAuto(30,5,500);
+        strafeLeftAuto(123,10,1000);
 
     }
 

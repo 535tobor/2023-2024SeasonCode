@@ -2,7 +2,8 @@ package org.firstinspires.ftc.teamcode.gamecode.autonomous;
 
 import static com.qualcomm.hardware.rev.RevHubOrientationOnRobot.LogoFacingDirection.UP;
 import static com.qualcomm.hardware.rev.RevHubOrientationOnRobot.UsbFacingDirection.RIGHT;
-import static org.firstinspires.ftc.teamcode.operations.inOut.driverControlled.RobotCentric.sensorRange;
+import static org.firstinspires.ftc.teamcode.operations.inOut.Configs.mapOtherThings;
+import static org.firstinspires.ftc.teamcode.operations.inOut.Configs.sensorRange;
 import static org.firstinspires.ftc.teamcode.operations.inputs.AprilTag.initAprilTag;
 import static org.firstinspires.ftc.teamcode.operations.inputs.Imu.imuGet;
 import static org.firstinspires.ftc.teamcode.operations.inputs.TouchSensorButton.button;
@@ -79,11 +80,7 @@ public class BlueBoardSide extends Target_operations {
         initAprilTag(hardwareMap, "Webcam 1", telemetry);
         Encoders.clear();
 
-        sensorRange = hardwareMap.get(DistanceSensor.class, "left_eye");
-
-        arm = hardwareMap.get(DcMotorEx.class, "arm");
-        shaft = hardwareMap.get(DcMotor.class, "shaft");
-        claw = hardwareMap.get(Servo.class, "claw");
+        mapOtherThings(hardwareMap);
         TouchSensorButton.mapDigital(hardwareMap); // button
 
 

@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.gamecode.tests;
 
 import static com.qualcomm.hardware.rev.RevHubOrientationOnRobot.LogoFacingDirection.LEFT;
 import static com.qualcomm.hardware.rev.RevHubOrientationOnRobot.UsbFacingDirection.UP;
-import static org.firstinspires.ftc.teamcode.operations.inOut.driverControlled.RobotCentric.sensorRange;
+import static org.firstinspires.ftc.teamcode.operations.inOut.Configs.mapOtherThings;
 import static org.firstinspires.ftc.teamcode.operations.inputs.AprilTag.initAprilTag;
 import static org.firstinspires.ftc.teamcode.operations.inputs.AprilTag.visionPortal;
 import static org.firstinspires.ftc.teamcode.operations.inputs.Imu.imuGet;
@@ -12,6 +12,7 @@ import static org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.a
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.shaft.Target_shaft.shaft;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.bl;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.br;
+import static org.firstinspires.ftc.teamcode.operations.inputs.Odometer.*;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.fl;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.forwardMotors;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.fr;
@@ -63,11 +64,7 @@ public class EncoderTest extends Target_operations {
         imuGet(hardwareMap, DeviceNames.DEFAULT_IMU.hardwareMapName(), LEFT.name(), UP.name());
         Encoders.clear();
 
-        sensorRange = hardwareMap.get(DistanceSensor.class, "left_eye");
-
-        arm = hardwareMap.get(DcMotorEx.class, "arm");
-        shaft = hardwareMap.get(DcMotor.class, "shaft");
-        claw = hardwareMap.get(Servo.class, "claw");
+        mapOtherThings(hardwareMap);
     }
 
     @Override
@@ -81,6 +78,7 @@ public class EncoderTest extends Target_operations {
         // example if I have 5,000 ticks in 3 and 2/16 of and inch then I do 5,000 / 3 2/16 = 1600 ticks in one inch
         // for measuring angles I will have to work with a specific angel though, such as 90 degrees, 180, or 360
         rotateArm(-200,-2);
+
     } // 150 degrees
 
 

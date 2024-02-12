@@ -3,13 +3,17 @@ package org.firstinspires.ftc.teamcode.operations.inOut.driverControlled;
 import static com.qualcomm.hardware.rev.RevHubOrientationOnRobot.LogoFacingDirection.UP;
 import static com.qualcomm.hardware.rev.RevHubOrientationOnRobot.UsbFacingDirection.RIGHT;
 import static org.firstinspires.ftc.teamcode.gamecode.teleop.RobotCentric.wrist;
-import static org.firstinspires.ftc.teamcode.operations.inOut.driverControlled.RobotCentric.sensorRange;
+import static org.firstinspires.ftc.teamcode.operations.inOut.Configs.mapOtherThings;
+import static org.firstinspires.ftc.teamcode.operations.inOut.Configs.sensorRange;
 import static org.firstinspires.ftc.teamcode.operations.inOut.driverControlled.gamepad2.General.runLoopGamepad2;
 import static org.firstinspires.ftc.teamcode.operations.inputs.AprilTag.initAprilTag;
 import static org.firstinspires.ftc.teamcode.operations.inputs.Imu.imuGet;
 import static org.firstinspires.ftc.teamcode.operations.inputs.Imu.imuReset;
+import static org.firstinspires.ftc.teamcode.operations.inputs.Odometer.oLeft;
+import static org.firstinspires.ftc.teamcode.operations.inputs.Odometer.oRight;
 import static org.firstinspires.ftc.teamcode.operations.inputs.Target_inputs.imu;
 import static org.firstinspires.ftc.teamcode.operations.inputs.TouchSensorButton.button;
+import static org.firstinspires.ftc.teamcode.operations.outputs.driverStation.DriverStation.outputMake;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.arm.Target_arm.arm;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.shaft.Target_shaft.shaft;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.bl;
@@ -42,6 +46,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.operations.inputs.DeviceNames;
 import org.firstinspires.ftc.teamcode.operations.inputs.TouchSensorButton;
+import org.firstinspires.ftc.teamcode.operations.outputs.driverStation.TelemetryShow;
 import org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.arm.ConfigureArm;
 import org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.shaft.ConfigureShaft;
 import org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.claw.ConfigureClaw;
@@ -57,41 +62,22 @@ public class FieldCentric {
         forwardMotors(false,true,false,true);
         imuGet(hardwareMap, DeviceNames.DEFAULT_IMU.hardwareMapName(), RIGHT.name(), UP.name());
         initAprilTag(hardwareMap, DeviceNames.DEFAULT_CAMERA.hardwareMapName(), telemetry);
-        sensorRange = hardwareMap.get(DistanceSensor.class, "left_eye");
 
-        wrist = hardwareMap.get(Servo.class, "wrist");
-        arm = hardwareMap.get(DcMotorEx.class, "arm");
-        shaft = hardwareMap.get(DcMotor.class, "shaft");
-        claw = hardwareMap.get(Servo.class, "claw");
+        mapOtherThings(hardwareMap);
         TouchSensorButton.mapDigital(hardwareMap); // button
 
         arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
     public static void runLoopFieldCentric(Telemetry telemetry, Gamepad gamepad1, Gamepad gamepad2, double speed){
-        telemetry.addData("claw: ",claw.getPosition());
-        telemetry.addData("Distance in Inches: ",sensorRange.getDistance(DistanceUnit.INCH));
-        telemetry.addData("touch sensor", button.isPressed());
-
         dpadMovements(gamepad1, speed); // sets waypoints to the d_pads's positions
         extraSpeed(gamepad1);
 
         imuReset(gamepad1.options); // resets imu case of accidents or incidences
         fieldCentricMath(); // does the required math for Mecanum drive as well as getting imu for field centric
 
-        telemetry.addData("bot heading: ", botHeading);
         runLoopGamepad2(gamepad2);
-
-
-
-        telemetry.addData("position FL ", fl.getCurrentPosition());
-        telemetry.addData("position FR ", fr.getCurrentPosition());
-        telemetry.addData("position BL ", bl.getCurrentPosition());
-        telemetry.addData("position BR ", br.getCurrentPosition());
-        telemetry.addData("degrees ", imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
-        telemetry.addData("arm", arm.getCurrentPosition());
-        telemetry.addData("shaft", shaft.getCurrentPosition());
-        telemetry.update();
+        TelemetryShow.allLoopMessages(telemetry);
 
 
         //clawUseWithGamepad(gamepad2); // using the claw (open/close)

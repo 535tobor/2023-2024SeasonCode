@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.gamecode.autonomous;
 
-import static org.firstinspires.ftc.teamcode.operations.inOut.driverControlled.RobotCentric.sensorRange;
+import static org.firstinspires.ftc.teamcode.operations.inOut.Configs.mapOtherThings;
+import static org.firstinspires.ftc.teamcode.operations.inOut.Configs.sensorRange;
 import static org.firstinspires.ftc.teamcode.operations.inputs.AprilTag.initAprilTag;
 import static org.firstinspires.ftc.teamcode.operations.inputs.TouchSensorButton.button;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.shaft.Target_shaft.shaft;
@@ -64,11 +65,7 @@ public class BlueFarSideGuess extends Target_operations {
         initAprilTag(hardwareMap, "Webcam 1", telemetry);
         Encoders.clear();
 
-        sensorRange = hardwareMap.get(DistanceSensor.class, "left_eye");
-
-        arm = hardwareMap.get(DcMotorEx.class, "arm");
-        shaft = hardwareMap.get(DcMotor.class, "shaft");
-        claw = hardwareMap.get(Servo.class, "claw");
+        mapOtherThings(hardwareMap);
 
         fl.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         fr.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -103,23 +100,24 @@ public class BlueFarSideGuess extends Target_operations {
         openClaw(0.5);
 
         // guess that team prop is in middle
-        strafeRightAuto(3,3,500); // away from rigging
-        forwardAuto(25,3,500);
-        backwardAuto(25,3,500);
+        strafeRightAuto(3,3,100); // away from rigging
+        forwardAuto(25,3,100);
+        backwardAuto(25,3,100);
 
         // park
-        forwardAuto(3, 3,500); //
-        strafeRightAuto(8,3,500); //
-        forwardAuto(15,3,500); //
-        strafeRightAuto(17,3,500); //
-        forwardAuto(48,4,500);
-        strafeLeftAuto(123,5,500);
+        forwardAuto(3, 3,100); //
+        strafeLeftAuto(10,3,100);
+        strafeRightAuto(8,3,100); //
+        forwardAuto(15,3,100); //
+        strafeRightAuto(17,3,100); //
+        forwardAuto(48,4,100);
+        strafeLeftAuto(123,5,100);
 
     }
 
     @Override
     public void runLoop() {
-        telemetry.addData("target ", 500);
+        telemetry.addData("target ", 100);
         telemetry.addData("position FL ", fl.getCurrentPosition());
         telemetry.addData("position FR ", fr.getCurrentPosition());
         telemetry.addData("position BL ", bl.getCurrentPosition());
