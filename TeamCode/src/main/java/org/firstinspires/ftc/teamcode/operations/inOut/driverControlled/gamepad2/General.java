@@ -27,27 +27,11 @@ public class General {
 
 
         if (gamepad2.left_bumper) {
-            if (leftBump) {
-                clawValue += 0.025; // open
-                claw.setPosition(clawValue);
-                leftBump = false;
-            }
-        }
-
-        else {
-            leftBump = true;
+            closeClaw();
         }
 
         if (gamepad2.right_bumper) {
-            if (rightBump) {
-                clawValue -= 0.025; // close
-                claw.setPosition(clawValue);
-                rightBump = false;
-            }
-        }
-
-        else {
-            rightBump = true;
+            openClaw();
         }
 
 

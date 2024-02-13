@@ -34,7 +34,7 @@ import org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Wheels;
 
 @Autonomous(name="Red, Far Side Guess", group="guess")
 public class RedFarSideGuess extends Target_operations {
-    boolean hasBeenPressed = false;
+    private boolean hasBeenPressed = false;
     Orientation direction;
     private static int teamprop = 0;
     private static boolean found = false;
@@ -65,13 +65,6 @@ public class RedFarSideGuess extends Target_operations {
         Encoders.clear();
 
         mapOtherThings(hardwareMap);
-
-        fl.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        fr.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        bl.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        br.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        shaft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         TouchSensorButton.mapDigital(hardwareMap); // button
 
     }
@@ -83,7 +76,7 @@ public class RedFarSideGuess extends Target_operations {
 
         openClaw();
         if (button.isPressed() && !hasBeenPressed) {
-            arm.setPower(-0.1);
+            arm.setPower(-1);
             hasBeenPressed = true;
         }
         else if (hasBeenPressed) {
@@ -91,13 +84,12 @@ public class RedFarSideGuess extends Target_operations {
             arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         }
         else {
-            arm.setPower(0.5);
+            arm.setPower(1);
         }
     }
 
     @Override
     public void runStart() {
-        openClaw(0.5);
 
         // guess that team prop is in middle
         strafeLeftAuto(3,2,500); // away from rigging

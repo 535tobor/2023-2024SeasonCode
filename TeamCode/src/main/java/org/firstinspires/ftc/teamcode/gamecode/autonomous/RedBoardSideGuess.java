@@ -75,7 +75,7 @@ public class RedBoardSideGuess extends Target_operations {
 
         openClaw();
         if (button.isPressed() && !hasBeenPressed) {
-            arm.setPower(-0.1);
+            arm.setPower(-1);
             hasBeenPressed = true;
         }
         else if (hasBeenPressed) {
@@ -83,7 +83,7 @@ public class RedBoardSideGuess extends Target_operations {
             arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         }
         else {
-            arm.setPower(0.5);
+            arm.setPower(1);
         }
     }
 

@@ -43,6 +43,9 @@ public class AprilTag {
         }
     }
 
+
+    // setAprilTagVariables is used for setting up the april tag
+    // to use if statement for if desired tag is found use the tagName variable bellow
     public static void setAprilTagVariables() {
         // add AprilTag found information to set variables
 

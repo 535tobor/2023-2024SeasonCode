@@ -72,7 +72,6 @@ public class BlueBoardSide extends Target_operations {
 
     @Override
     public void runInit() {
-        //arm = hardwareMap.dcMotor.get("arm");
         mapMotors(hardwareMap, Wheels.FRONT_LEFT.abbreviation(), Wheels.FRONT_RIGHT.abbreviation(), Wheels.BACK_LEFT.abbreviation(), Wheels.BACK_RIGHT.abbreviation());
         forwardMotors(true, false, true, false);
         imuGet(hardwareMap, DeviceNames.DEFAULT_IMU.hardwareMapName(), RIGHT.name(), UP.name());
@@ -93,7 +92,7 @@ public class BlueBoardSide extends Target_operations {
 
         openClaw();
         if (button.isPressed() && !hasBeenPressed) {
-            arm.setPower(-0.1);
+            arm.setPower(-1);
             hasBeenPressed = true;
         }
         else if (hasBeenPressed) {
@@ -101,13 +100,13 @@ public class BlueBoardSide extends Target_operations {
             arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         }
         else {
-            arm.setPower(0.5);
+            arm.setPower(1);
         }
     }
 
     @Override
     public void runStart() {
-        openClaw(0.5);
+        openClaw();
         telemetry.addData("found: ", sensorRange.getDistance(DistanceUnit.INCH));
         telemetry.update();
         int scanTimes = 0;

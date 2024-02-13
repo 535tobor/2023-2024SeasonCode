@@ -56,7 +56,6 @@ public class BlueBoardSideGuess extends Target_operations {
 
     @Override
     public void runInit() {
-        //arm = hardwareMap.dcMotor.get("arm");
         mapMotors(hardwareMap, Wheels.FRONT_LEFT.abbreviation(), Wheels.FRONT_RIGHT.abbreviation(), Wheels.BACK_LEFT.abbreviation(), Wheels.BACK_RIGHT.abbreviation());
         forwardMotors(true,false,true,false);
         // ^ set motor directions
@@ -75,7 +74,7 @@ public class BlueBoardSideGuess extends Target_operations {
 
         openClaw();
         if (button.isPressed() && !hasBeenPressed) {
-            arm.setPower(-0.1);
+            arm.setPower(-1);
             hasBeenPressed = true;
         }
         else if (hasBeenPressed) {
@@ -83,7 +82,7 @@ public class BlueBoardSideGuess extends Target_operations {
             arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         }
         else {
-            arm.setPower(0.5);
+            arm.setPower(1);
         }
     }
 

@@ -66,13 +66,6 @@ public class BlueFarSideGuess extends Target_operations {
         Encoders.clear();
 
         mapOtherThings(hardwareMap);
-
-        fl.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        fr.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        bl.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        br.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        shaft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         TouchSensorButton.mapDigital(hardwareMap); // button
     }
 
@@ -83,7 +76,7 @@ public class BlueFarSideGuess extends Target_operations {
 
         openClaw();
         if (button.isPressed() && !hasBeenPressed) {
-            arm.setPower(-0.1);
+            arm.setPower(-1);
             hasBeenPressed = true;
         }
         else if (hasBeenPressed) {
@@ -91,13 +84,13 @@ public class BlueFarSideGuess extends Target_operations {
             arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         }
         else {
-            arm.setPower(0.5);
+            arm.setPower(1);
         }
     }
 
     @Override
     public void runStart() {
-        openClaw(0.5);
+        openClaw();
 
         // guess that team prop is in middle
         strafeRightAuto(3,3,100); // away from rigging
