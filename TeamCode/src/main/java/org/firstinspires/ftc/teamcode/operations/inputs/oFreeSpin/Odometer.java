@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.operations.inputs;
+package org.firstinspires.ftc.teamcode.operations.inputs.oFreeSpin;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 

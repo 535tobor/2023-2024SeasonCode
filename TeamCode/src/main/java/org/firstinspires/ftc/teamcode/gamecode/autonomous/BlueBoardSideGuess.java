@@ -79,7 +79,6 @@ public class BlueBoardSideGuess extends Target_operations {
         }
         else if (hasBeenPressed) {
             arm.setPower(0);
-            arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         }
         else {
             arm.setPower(1);

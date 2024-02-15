@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.gamecode.autonomous;
+package org.firstinspires.ftc.teamcode.gamecode.autonomous.arcived;
 
 import static com.qualcomm.hardware.rev.RevHubOrientationOnRobot.LogoFacingDirection.UP;
 import static com.qualcomm.hardware.rev.RevHubOrientationOnRobot.UsbFacingDirection.RIGHT;
@@ -7,6 +7,8 @@ import static org.firstinspires.ftc.teamcode.operations.inOut.Configs.sensorRang
 import static org.firstinspires.ftc.teamcode.operations.inputs.AprilTag.initAprilTag;
 import static org.firstinspires.ftc.teamcode.operations.inputs.Imu.imuGet;
 import static org.firstinspires.ftc.teamcode.operations.inputs.TouchSensorButton.button;
+import static org.firstinspires.ftc.teamcode.operations.inputs.VisionScanner.readProp;
+import static org.firstinspires.ftc.teamcode.operations.inputs.VisionScanner.teamprop;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.arm.Target_arm.arm;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.arm.armMovements.rotateArm;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.shaft.Target_shaft.shaft;
@@ -41,12 +43,10 @@ import org.firstinspires.ftc.teamcode.operations.inputs.TouchSensorButton;
 import org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Encoders;
 import org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Wheels;
 
-@Autonomous(name="Blue, Board Side Mega", group="mega")
+@Autonomous(name="Blue, Board Side Mega (old)",group="mega")
 public class BlueBoardSide extends Target_operations {
     boolean hasBeenPressed = false;
     Orientation direction;
-    private static int teamprop = 0;
-    private static boolean found = false;
     private static double distanceUse = 0;
     private static double storedDistance = 0;
     // and save the heading
@@ -97,7 +97,6 @@ public class BlueBoardSide extends Target_operations {
         }
         else if (hasBeenPressed) {
             arm.setPower(0);
-            arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         }
         else {
             arm.setPower(1);
@@ -109,27 +108,7 @@ public class BlueBoardSide extends Target_operations {
         openClaw();
         telemetry.addData("found: ", sensorRange.getDistance(DistanceUnit.INCH));
         telemetry.update();
-        int scanTimes = 0;
-        found = false;
-        while (!found) {
-            telemetry.addData("teamprop", teamprop);
-            telemetry.addData("distance", sensorRange.getDistance(DistanceUnit.INCH));
-            telemetry.update();
-            scanTimes += 1;
-            // if something is found under 26 inches than it must be the team prop
-            if (sensorRange.getDistance(DistanceUnit.INCH) < 35) {
-                teamprop = 2;
-                found = true;
-            }
-            // if after 20 scans there is no team prop found then give up and move on to the next tape
-            if (scanTimes >= 50) {
-                teamprop = 0;
-                found = true;
-            }
-        }
-        telemetry.addData("teamprop", teamprop);
-        telemetry.addData("distance", sensorRange.getDistance(DistanceUnit.INCH));
-        telemetry.update();
+        readProp(telemetry, 35, 2,50);
 
         closeClaw(); // close
         sleep(700);
@@ -149,29 +128,10 @@ public class BlueBoardSide extends Target_operations {
 
 
         } else {
-            scanTimes = 0;
-            found = false;
             // if the middle team prop is not found then search for the team prop on zone 1
             strafeLeftAuto(10, 1, 800);
-            /*turnLeftAuto(500 * 3, 2, 500); // 90 degrees
-            openClaw();*/
 
-            while (!found) {
-                telemetry.addData("teamprop", teamprop);
-                telemetry.addData("distance", sensorRange.getDistance(DistanceUnit.INCH));
-                telemetry.update();
-                scanTimes += 1;
-                // if something is found under 26 inches than it must be the team prop
-                if (sensorRange.getDistance(DistanceUnit.INCH) < 35) {
-                    teamprop = 1;
-                    found = true;
-                }
-                // if after 20 scans there is no team prop found then give up and move on to the next tape
-                if (scanTimes >= 50) {
-                    teamprop = 0;
-                    found = true;
-                }
-            }
+            readProp(telemetry, 35, 1,50);
 
             if (teamprop == 1) {
                 telemetry.addData("", "found!");

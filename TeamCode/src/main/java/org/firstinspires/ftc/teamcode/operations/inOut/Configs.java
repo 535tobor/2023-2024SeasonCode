@@ -1,8 +1,8 @@
 package org.firstinspires.ftc.teamcode.operations.inOut;
 
 import static org.firstinspires.ftc.teamcode.gamecode.teleop.RobotCentric.wrist;
-import static org.firstinspires.ftc.teamcode.operations.inputs.Odometer.oLeft;
-import static org.firstinspires.ftc.teamcode.operations.inputs.Odometer.oRight;
+import static org.firstinspires.ftc.teamcode.operations.inputs.oFreeSpin.Odometer.oLeft;
+import static org.firstinspires.ftc.teamcode.operations.inputs.oFreeSpin.Odometer.oRight;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.arm.Target_arm.arm;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.shaft.Target_shaft.shaft;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.claw.Target_claw.claw;

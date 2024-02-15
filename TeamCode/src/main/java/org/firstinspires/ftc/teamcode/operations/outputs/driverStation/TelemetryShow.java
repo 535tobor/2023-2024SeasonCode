@@ -1,8 +1,8 @@
 package org.firstinspires.ftc.teamcode.operations.outputs.driverStation;
 
 import static org.firstinspires.ftc.teamcode.operations.inOut.Configs.sensorRange;
-import static org.firstinspires.ftc.teamcode.operations.inputs.Odometer.oLeft;
-import static org.firstinspires.ftc.teamcode.operations.inputs.Odometer.oRight;
+import static org.firstinspires.ftc.teamcode.operations.inputs.oFreeSpin.Odometer.oLeft;
+import static org.firstinspires.ftc.teamcode.operations.inputs.oFreeSpin.Odometer.oRight;
 import static org.firstinspires.ftc.teamcode.operations.inputs.Target_inputs.imu;
 import static org.firstinspires.ftc.teamcode.operations.inputs.TouchSensorButton.button;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.arm.Target_arm.arm;

@@ -19,10 +19,10 @@ public class EachMotorSet {
     }
 
     public static void driveAuto(double frontLeftSpeed, double frontRightSpeed, double backLeftSpeed, double backRightSpeed) {
-        fr.setVelocity(frontRightSpeed);
-        fl.setVelocity(frontLeftSpeed);
-        br.setVelocity(backRightSpeed);
-        bl.setVelocity(backLeftSpeed);
+        fr.setVelocity(-frontRightSpeed);
+        fl.setVelocity(-frontLeftSpeed);
+        br.setVelocity(-backRightSpeed);
+        bl.setVelocity(-backLeftSpeed);
         // set raw power (voltage) to each motor individually
 
     }

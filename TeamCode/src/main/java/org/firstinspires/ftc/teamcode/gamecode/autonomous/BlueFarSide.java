@@ -98,7 +98,6 @@ public class BlueFarSide extends Target_operations {
         }
         else if (hasBeenPressed) {
             arm.setPower(0);
-            arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         }
         else {
             arm.setPower(1);
@@ -107,7 +106,7 @@ public class BlueFarSide extends Target_operations {
 
     @Override
     public void runStart() {
-        openClaw(0.5);
+        openClaw();
         telemetry.addData("found: ", sensorRange.getDistance(DistanceUnit.INCH));
         telemetry.update();
         int scanTimes = 0;
@@ -133,7 +132,7 @@ public class BlueFarSide extends Target_operations {
         telemetry.update();
 
         closeClaw(); // close
-        rotateArm(1000, 1);
+        //rotateArm(1000, 1);
 
 
         if (teamprop == 2) { // if the middle team prop is found then go to it and drop the pixel
@@ -205,7 +204,7 @@ public class BlueFarSide extends Target_operations {
         forwardAuto(15,3,500); //
         strafeRightAuto(13,3,500); //
         forwardAuto(30,5,500);
-        strafeLeftAuto(123,10,1000);
+        strafeLeftAuto(123,10,2000);
 
     }
 
