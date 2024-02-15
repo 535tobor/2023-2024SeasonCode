@@ -40,10 +40,11 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.operations.Target_operations;
 import org.firstinspires.ftc.teamcode.operations.inputs.DeviceNames;
 import org.firstinspires.ftc.teamcode.operations.inputs.TouchSensorButton;
+import org.firstinspires.ftc.teamcode.operations.outputs.driverStation.TelemetryShow;
 import org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Encoders;
 import org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Wheels;
 
-@Autonomous(name="Blue, Board Side Mega (old)",group="mega")
+@Autonomous(name="Blue, Board Side Mega (old)",group="mega old")
 public class BlueBoardSide extends Target_operations {
     boolean hasBeenPressed = false;
     Orientation direction;
@@ -162,15 +163,7 @@ public class BlueBoardSide extends Target_operations {
     @Override
     public void runLoop() {
 
-        telemetry.addData("position FL ", fl.getCurrentPosition());
-        telemetry.addData("position FR ", fr.getCurrentPosition());
-        telemetry.addData("position BL ", bl.getCurrentPosition());
-        telemetry.addData("position BR ", br.getCurrentPosition());
-        telemetry.addData("TargetTicksPerInch (final) : ", 30 * ticksPerInch);
-        telemetry.addData("Sensor Range (Inches) : ", sensorRange.getDistance(DistanceUnit.INCH));
-        telemetry.addData("Bot Heading : ", sensorRange.getDistance(DistanceUnit.INCH));
-        telemetry.addData("Bot Heading Final : ", sensorRange.getDistance(DistanceUnit.INCH));
-        telemetry.update();
+        TelemetryShow.allLoopMessages(telemetry);
     }
 }
 
