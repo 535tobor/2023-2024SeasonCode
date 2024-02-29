@@ -31,6 +31,7 @@ import org.firstinspires.ftc.teamcode.operations.outputs.driverStation.Telemetry
 import org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.arm.ConfigureArm;
 import org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.shaft.ConfigureShaft;
 import org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.claw.ConfigureClaw;
+import org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.clawWrist.ConfigureWristClaw;
 
 public class FieldCentric {
     public static void initFieldCentric(HardwareMap hardwareMap, Telemetry telemetry) {
@@ -38,6 +39,7 @@ public class FieldCentric {
 
         ConfigureArm.mapMotor(hardwareMap);
         ConfigureClaw.mapServo(hardwareMap);
+        ConfigureWristClaw.mapServo(hardwareMap);
         ConfigureShaft.mapMotor(hardwareMap);
 
         forwardMotors(false,true,false,true);
@@ -51,13 +53,14 @@ public class FieldCentric {
     }
 
     public static void runLoopFieldCentric(Telemetry telemetry, Gamepad gamepad1, Gamepad gamepad2, double speed){
+
         dpadMovements(gamepad1, speed); // sets waypoints to the d_pads's positions
         extraSpeed(gamepad1);
 
         imuReset(gamepad1.options); // resets imu case of accidents or incidences
         fieldCentricMath(); // does the required math for Mecanum drive as well as getting imu for field centric
 
-        runLoopGamepad2(gamepad2);
+        runLoopGamepad2(gamepad2, gamepad1);
         TelemetryShow.allLoopMessages(telemetry);
 
 

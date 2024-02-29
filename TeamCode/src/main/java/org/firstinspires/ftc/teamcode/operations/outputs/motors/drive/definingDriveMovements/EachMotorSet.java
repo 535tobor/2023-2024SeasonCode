@@ -10,10 +10,10 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 public class EachMotorSet {
     public static void drive(double frontLeftSpeed, double frontRightSpeed, double backLeftSpeed, double backRightSpeed) {
-        fr.setVelocity(frontRightSpeed*1000);
-        fl.setVelocity(frontLeftSpeed*1000);
-        br.setVelocity(backRightSpeed*1000);
-        bl.setVelocity(backLeftSpeed*1000);
+        fr.setVelocity(frontRightSpeed*1500);
+        fl.setVelocity(frontLeftSpeed*1500);
+        br.setVelocity(backRightSpeed*1500);
+        bl.setVelocity(backLeftSpeed*1500);
         // set raw power (voltage) to each motor individually
 
     }

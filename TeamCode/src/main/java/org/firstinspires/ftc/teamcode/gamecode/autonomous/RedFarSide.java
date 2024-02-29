@@ -22,6 +22,7 @@ import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.def
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.claw.Target_claw.claw;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.claw.clawMovements.closeClaw;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.claw.clawMovements.openClaw;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.clawWrist.wristClawMovements.wristMove;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -77,9 +78,11 @@ public class RedFarSide extends Target_operations {
         telemetry.addData("found: ", sensorRange.getDistance(DistanceUnit.INCH));
         telemetry.update();
 
-        openClaw();
         if (button.isPressed() && !hasBeenPressed) {
             arm.setPower(-1);
+            // move arm up only one notch
+            // open claw so the robot fits in the 18x18 zone
+            openClaw();
             hasBeenPressed = true;
         }
         else if (hasBeenPressed) {
@@ -129,9 +132,18 @@ public class RedFarSide extends Target_operations {
             telemetry.addData("teamprop",teamprop);
             telemetry.addData("distance",sensorRange.getDistance(DistanceUnit.INCH));
             telemetry.update();
-            forwardAuto(27, 5, 800);
+            forwardAuto(30, 5, 800);
             openClaw();
             backwardAuto(50,1,800);
+
+            wristMove(0.8);
+            // set wrist to a position needed to touch the ground
+
+            // extend shaft somehow.
+
+            closeClaw();
+            // the claw closes so it will not hit anything as the arm lowers
+            // in runInitLoop should be openClaw(); under if button is pressed, do once
 
 
         }
@@ -167,7 +179,7 @@ public class RedFarSide extends Target_operations {
                 telemetry.addData("teamprop",teamprop);
                 telemetry.addData("distance",sensorRange.getDistance(DistanceUnit.INCH));
                 telemetry.update();
-                forwardAuto(23, 5, 800);
+                forwardAuto(25, 5, 800);
                 strafeLeftAuto(5,1,800);
                 openClaw(0.5);
                 strafeRightAuto(5,2,1000);
@@ -177,11 +189,11 @@ public class RedFarSide extends Target_operations {
             else {
                 // zone 3
                 strafeRightAuto(10,1,800);
-                forwardAuto(27, 5, 800);
+                forwardAuto(29, 5, 800);
                 strafeLeftAuto(5,1,800);
-                turnRightAuto(500 * 3,1,800);
+                turnRightAuto(90,1,800);
                 openClaw();
-                turnLeftAuto(500*3,1,800);
+                turnLeftAuto(90,1,800);
                 backwardAuto(50,1,800);
             }
         }

@@ -1,62 +1,66 @@
-package org.firstinspires.ftc.teamcode.gamecode.autonomous.arcived;
+package org.firstinspires.ftc.teamcode.gamecode.autonomous;
 
-import static com.qualcomm.hardware.rev.RevHubOrientationOnRobot.LogoFacingDirection.UP;
-import static com.qualcomm.hardware.rev.RevHubOrientationOnRobot.UsbFacingDirection.RIGHT;
 import static org.firstinspires.ftc.teamcode.operations.inOut.Configs.mapOtherThings;
 import static org.firstinspires.ftc.teamcode.operations.inOut.Configs.sensorRange;
 import static org.firstinspires.ftc.teamcode.operations.inputs.AprilTag.initAprilTag;
-import static org.firstinspires.ftc.teamcode.operations.inputs.Imu.imuGet;
 import static org.firstinspires.ftc.teamcode.operations.inputs.TouchSensorButton.button;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.arm.Target_arm.arm;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.arm.armMovements.rotateArm;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.shaft.Target_shaft.shaft;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.bl;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.br;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.fl;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.forwardMotors;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.fr;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.mapMotors;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EncoderTickDefinitions.backwardAuto;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EncoderTickDefinitions.forwardAuto;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EncoderTickDefinitions.strafeLeftAuto;
-import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EncoderTickDefinitions.strafeRightAuto;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EncoderTickDefinitions.turnLeftAuto;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.claw.Target_claw.claw;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.claw.clawMovements.closeClaw;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.claw.clawMovements.openClaw;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.clawWrist.wristClawMovements.wristMove;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.operations.Target_operations;
-import org.firstinspires.ftc.teamcode.operations.inputs.DeviceNames;
 import org.firstinspires.ftc.teamcode.operations.inputs.TouchSensorButton;
-import org.firstinspires.ftc.teamcode.operations.outputs.driverStation.TelemetryShow;
 import org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Encoders;
 import org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Wheels;
 
-@Autonomous(name="Blue, Far Side Push", group="push")
-public class BlueFarSidePush extends Target_operations {
-
-    DcMotor arm;
+@Autonomous(name="PxB: Blue, Board Side. Pixel On Board", group="pixel board")
+public class BlueBoardSidePixelOnBoard extends Target_operations {
     boolean hasBeenPressed = false;
     Orientation direction;
+    private static int teamprop = 0;
+    private static boolean found = false;
     private static double distanceUse = 0;
     private static double storedDistance = 0;
     // and save the heading
     double botHeading;
     double botTargetHeading;
-
     @Override
-    public void runOpMode() throws InterruptedException {
-        // LinearOpMode that calls a different form of OpMode:
+    public void runOpMode() {
+
         runInit();
         while(opModeInInit()){runInitLoop();}
         waitForStart();
         runStart();
-        if (isStopRequested()){runStop();} // stop OpMode if the button is pressed
+        if (isStopRequested()){runStop();}
         while (opModeIsActive()) {runLoop();}
     }
 
     @Override
     public void runInit() {
         mapMotors(hardwareMap, Wheels.FRONT_LEFT.abbreviation(), Wheels.FRONT_RIGHT.abbreviation(), Wheels.BACK_LEFT.abbreviation(), Wheels.BACK_RIGHT.abbreviation());
-        forwardMotors(true, false, true, false);
-        imuGet(hardwareMap, DeviceNames.DEFAULT_IMU.hardwareMapName(), RIGHT.name(), UP.name());
+        forwardMotors(true,false,true,false);
         // ^ set motor directions
         initAprilTag(hardwareMap, "Webcam 1", telemetry);
         Encoders.clear();
@@ -73,11 +77,10 @@ public class BlueFarSidePush extends Target_operations {
         // the claw closes so it will not hit anything as the arm lowers
         // in runInitLoop should be openClaw(); under if button is pressed, do once
 
-
     }
 
     @Override
-    public void runInitLoop(){
+    public void runInitLoop() {
         telemetry.addData("found: ", sensorRange.getDistance(DistanceUnit.INCH));
         telemetry.update();
 
@@ -98,21 +101,33 @@ public class BlueFarSidePush extends Target_operations {
 
     @Override
     public void runStart() {
-        forwardAuto(3,3,500); //
-        strafeRightAuto(8,3,500); //
-        forwardAuto(15,3,500); //
-        strafeRightAuto(17,3,500); //
-        forwardAuto(58,3,500);
-        strafeLeftAuto(110,3,500);
+        // move to board and put a pixel on the board
+        closeClaw();
+        // sleep(2000); // this sleep should not be necessary
+        forwardAuto(1,5,500); // move away from the wall
+        rotateArm(2,0.5); // arm up so it does not scrape the ground
+        strafeLeftAuto(23,5,1000); // strafe towards the board side
+        forwardAuto(18,5,1000); // forward so that the robot's side is parallel to the board
+        turnLeftAuto(90,5,1000); // turn left so that the robot's front faces the board
+
+
+        
+        forwardAuto(15,5,1000); // up to the board enough
+
     }
-    @Override
-    public void runStop() {
-        stopAll();
-    }
+
     @Override
     public void runLoop() {
-
-        TelemetryShow.allLoopMessages(telemetry);
+        telemetry.addData("position FL ", fl.getCurrentPosition());
+        telemetry.addData("position FR ", fr.getCurrentPosition());
+        telemetry.addData("position BL ", bl.getCurrentPosition());
+        telemetry.addData("position BR ", br.getCurrentPosition());
+        telemetry.update();
     }
-}
 
+    @Override
+    public void runStop() {
+
+    }
+
+}

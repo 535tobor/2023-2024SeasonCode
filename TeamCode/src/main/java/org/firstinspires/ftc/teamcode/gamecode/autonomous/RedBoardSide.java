@@ -26,6 +26,7 @@ import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.def
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.claw.Target_claw.claw;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.claw.clawMovements.closeClaw;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.claw.clawMovements.openClaw;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.clawWrist.wristClawMovements.wristMove;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -83,6 +84,15 @@ public class RedBoardSide extends Target_operations {
         mapOtherThings(hardwareMap);
         TouchSensorButton.mapDigital(hardwareMap); // button
 
+        wristMove(0.8);
+        // set wrist to a position needed to touch the ground
+
+        // extend shaft somehow.
+
+        closeClaw();
+        // the claw closes so it will not hit anything as the arm lowers
+        // in runInitLoop should be openClaw(); under if button is pressed, do once
+
 
     }
 
@@ -91,9 +101,11 @@ public class RedBoardSide extends Target_operations {
         telemetry.addData("found: ", sensorRange.getDistance(DistanceUnit.INCH));
         telemetry.update();
 
-        openClaw();
         if (button.isPressed() && !hasBeenPressed) {
             arm.setPower(-1);
+            // move arm up only one notch
+            // open claw so the robot fits in the 18x18 zone
+            openClaw();
             hasBeenPressed = true;
         }
         else if (hasBeenPressed) {
@@ -183,22 +195,33 @@ public class RedBoardSide extends Target_operations {
                 backwardAuto(10,1,1000);
                 strafeLeftAuto(20,1,1000);
                 backwardAuto(30,1,1000);
+                // get ready to put pixel on board
+                turnLeftAuto(90,1,800);
             } else {
                 // zone 1
                 strafeLeftAuto(10, 1, 1000);
                 forwardAuto(17, 1, 1000);
                 strafeRightAuto(5, 1, 1000);
-                turnLeftAuto(500 * 3 / 2, 1, 1000);
+                turnLeftAuto(45, 1, 1000);
                 forwardAuto(10,2,1000);
                 openClaw();
                 backwardAuto(5,1,1000);
-                turnRightAuto(500 * 3, 1, 1000);
-                backwardAuto(30,5,1000);
+                // get ready to put pixel on board
+                turnRightAuto(90,1,800);
             }
         }
 
-        // park
-        strafeRightAuto(30,5,1000);
+        // attempt to put pixel on the board
+        backwardAuto(20, 1, 1000);
+        turnRightAuto(180,1,800);
+        forwardAuto(5,1,800);
+        strafeLeftAuto(20,1,1000);
+        closeClaw();
+        rotateArm(200,0.5);
+        turnLeftAuto(90,1,800);
+        strafeLeftAuto(5,1,800);
+        rotateArm(1000,0.5);
+        openClaw();
 
     }
 

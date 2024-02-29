@@ -28,6 +28,7 @@ import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.def
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.claw.Target_claw.claw;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.claw.clawMovements.closeClaw;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.claw.clawMovements.openClaw;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.clawWrist.wristClawMovements.wristMove;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -83,6 +84,14 @@ public class BlueBoardSide extends Target_operations {
         mapOtherThings(hardwareMap);
         TouchSensorButton.mapDigital(hardwareMap); // button
 
+        wristMove(0.8);
+        // set wrist to a position needed to touch the ground
+
+        // extend shaft somehow.
+
+        closeClaw();
+        // the claw closes so it will not hit anything as the arm lowers
+        // in runInitLoop should be openClaw(); under if button is pressed, do once
 
     }
 
@@ -91,9 +100,11 @@ public class BlueBoardSide extends Target_operations {
         telemetry.addData("found: ", sensorRange.getDistance(DistanceUnit.INCH));
         telemetry.update();
 
-        openClaw();
         if (button.isPressed() && !hasBeenPressed) {
             arm.setPower(-1);
+            // move arm up only one notch
+            // open claw so the robot fits in the 18x18 zone
+            openClaw();
             hasBeenPressed = true;
         }
         else if (hasBeenPressed) {
@@ -112,6 +123,10 @@ public class BlueBoardSide extends Target_operations {
         readProp(telemetry, 35, 2,50);
 
         closeClaw(); // close
+
+        telemetry.addData("found: ", sensorRange.getDistance(DistanceUnit.INCH));
+        telemetry.update();
+        readProp(telemetry, 35, 2,50); // check to see if closing the claw changed anything
         sleep(700);
         // lift arm above ground, holding 1 pixel
         rotateArm(100, 1);
@@ -125,7 +140,6 @@ public class BlueBoardSide extends Target_operations {
             telemetry.update();
             forwardAuto(26, 5, 800);
             openClaw();
-            strafeLeftAuto(45, 2, 1000);
 
 
         } else {
@@ -139,21 +153,35 @@ public class BlueBoardSide extends Target_operations {
                 telemetry.addData("teamprop", teamprop);
                 telemetry.addData("distance", sensorRange.getDistance(DistanceUnit.INCH));
                 telemetry.update();
-                forwardAuto(23, 5, 800);
+                forwardAuto(25, 5, 800);
                 strafeLeftAuto(5, 1, 800);
                 openClaw(0.5);
-                strafeLeftAuto(40, 2, 1000);
+                // get ready to put pixel on board
+                turnRightAuto(90,1,800);
             } else {
                 // zone 3
                 strafeRightAuto(10, 1, 800);
                 forwardAuto(27, 5, 800);
                 strafeLeftAuto(5, 1, 800);
-                turnRightAuto(500 * 3, 1, 800);
-                forwardAuto(2,1,800);
+                turnRightAuto(90, 1, 800);
+                forwardAuto(3,1,800);
                 openClaw();
+                turnLeftAuto(90,1,800);
                 backwardAuto(50, 2, 1000);
             }
         }
+
+        // attempt to put pixel on the board
+        backwardAuto(20, 1, 1000);
+        turnLeftAuto(180,1,800);
+        forwardAuto(5,1,800);
+        strafeRightAuto(20,1,1000);
+        closeClaw();
+        rotateArm(200,0.5);
+        turnRightAuto(90,1,800);
+        strafeRightAuto(5,1,800);
+        rotateArm(1000,0.5);
+        openClaw();
     }
 
     @Override

@@ -6,6 +6,9 @@ import static org.firstinspires.ftc.teamcode.operations.inputs.oFreeSpin.Odomete
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.arm.Target_arm.arm;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.shaft.Target_shaft.shaft;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.claw.Target_claw.claw;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.hang.SimpleRotateMovements.grabHang;
+
+import android.hardware.Sensor;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -13,8 +16,11 @@ import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.hang.ConfigureHangReleaseServo;
+
 public class Configs {
     public static DistanceSensor sensorRange;
+    public static Sensor drone;
     public static void mapOtherThings(HardwareMap hardwareMap) {
         sensorRange = hardwareMap.get(DistanceSensor.class, "left_eye");
         wrist = hardwareMap.get(Servo.class, "wrist");
@@ -23,5 +29,10 @@ public class Configs {
         claw = hardwareMap.get(Servo.class, "claw");
         oLeft = hardwareMap.get(DcMotor.class, "oLeft");
         oRight = hardwareMap.get(DcMotor.class, "oRight");
+        //drone = hardwareMap.get(Sensor.class, "drone");
+
+        ConfigureHangReleaseServo.mapServo(hardwareMap);
+
+        grabHang(); // set hang release servo position
     }
 }

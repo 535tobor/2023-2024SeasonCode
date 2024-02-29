@@ -64,7 +64,9 @@ public class EncoderTickDefinitions {
     }
 
     public static void turnLeftAuto(double degrees, long seconds, int encoderSpeed) { // turn
-        turnRightAuto(-degrees,seconds,-encoderSpeed);
+        // 500 * 3 (90 degrees)
+        double degreesTurn = 500 * 3/90*degrees; // 1 degree multiplied by entered degrees
+        turnRightAuto(-degreesTurn,seconds,-encoderSpeed);
     }
 
 }

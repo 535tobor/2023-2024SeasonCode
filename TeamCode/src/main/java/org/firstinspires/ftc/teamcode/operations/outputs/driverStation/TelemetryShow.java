@@ -13,6 +13,8 @@ import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Con
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.fr;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Mecanum.botHeading;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.claw.Target_claw.claw;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.clawWrist.Target_claw.wrist;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.hang.Target_hang.hang;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
@@ -21,6 +23,7 @@ public class TelemetryShow {
     public static void allLoopMessages(org.firstinspires.ftc.robotcore.external.Telemetry telemetry) {
 
         telemetry.addData("claw: ",claw.getPosition());
+        telemetry.addData("claw wrist: ",wrist.getPosition());
         telemetry.addData("Distance in Inches: ",sensorRange.getDistance(DistanceUnit.INCH));
         telemetry.addData("touch sensor", button.isPressed());
         telemetry.addData("bot heading: ", botHeading);
@@ -33,6 +36,7 @@ public class TelemetryShow {
         telemetry.addData("shaft", shaft.getCurrentPosition());
         telemetry.addData("oLeft", oLeft.getCurrentPosition());
         telemetry.addData("oRight", oRight.getCurrentPosition());
+        telemetry.addData("hang servo", hang.getPosition());
         telemetry.update();
 
     }

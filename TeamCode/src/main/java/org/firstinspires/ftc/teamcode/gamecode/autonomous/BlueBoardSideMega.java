@@ -21,7 +21,9 @@ import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.def
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EncoderTickDefinitions.strafeLeftAuto;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EncoderTickDefinitions.turnLeftAuto;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EncoderTickDefinitions.turnRightAuto;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.claw.clawMovements.closeClaw;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.claw.clawMovements.openClaw;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.clawWrist.wristClawMovements.wristMove;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -76,6 +78,15 @@ public class BlueBoardSideMega extends Target_operations {
         mapOtherThings(hardwareMap);
         TouchSensorButton.mapDigital(hardwareMap); // button
 
+        wristMove(0.8);
+        // set wrist to a position needed to touch the ground
+
+        // extend shaft somehow.
+
+        closeClaw();
+        // the claw closes so it will not hit anything as the arm lowers
+        // in runInitLoop should be openClaw(); under if button is pressed, do once
+
 
     }
 
@@ -84,9 +95,11 @@ public class BlueBoardSideMega extends Target_operations {
         telemetry.addData("found: ", sensorRange.getDistance(DistanceUnit.INCH));
         telemetry.update();
 
-        openClaw();
         if (button.isPressed() && !hasBeenPressed) {
             arm.setPower(-1);
+            // move arm up only one notch
+            // open claw so the robot fits in the 18x18 zone
+            openClaw();
             hasBeenPressed = true;
         }
         else if (hasBeenPressed) {
@@ -102,14 +115,14 @@ public class BlueBoardSideMega extends Target_operations {
         // once this is tested, it should work anywhere on the field (as far as the scanning the teamprop and putting the purple pixel on the tape part)
         oReset(); // reset encoders for free spinning wheels
         readProp(telemetry, 35, 2,50);
-        oTicksGoInches_Forward(28);
+        oTicksGoInches_Forward(28, 800);
         readProp(telemetry, 10, 2,50);
         if (teamprop == 2) {
             openClaw();
             // the pixel should score if the prop is in the middle here
 
             // this is so the robot is in the same end position after this 20 points. Parked, the robot can do things from there.
-            oTicksGoInches_Backward(28);
+            oTicksGoInches_Backward(28,800);
             // should be at wall start position at this time
         }
 
@@ -122,7 +135,7 @@ public class BlueBoardSideMega extends Target_operations {
                 openClaw();
                 // the pixel should score if the prop is in zone 1 here
                 turnRightAuto(90,1,1000);
-                oTicksGoInches_Backward(28);
+                oTicksGoInches_Backward(28, 800);
             }
 
             else {
@@ -131,12 +144,12 @@ public class BlueBoardSideMega extends Target_operations {
                 // it is not necessary to scan for the last zone, this is because process of elimination (zone 3)
                 openClaw();
                 turnLeftAuto(90,1,1000);
-                oTicksGoInches_Backward(28);
+                oTicksGoInches_Backward(28, 800);
             }
         }
 
         // to board
-        oTicksGoInches_Backward(3);
+        oTicksGoInches_Backward(3, 800);
         strafeLeftAuto(38,1,1000);
     }
 

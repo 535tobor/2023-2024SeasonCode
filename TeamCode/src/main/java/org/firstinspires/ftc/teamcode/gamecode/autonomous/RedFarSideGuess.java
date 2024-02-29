@@ -17,7 +17,9 @@ import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.def
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EncoderTickDefinitions.strafeLeftAuto;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EncoderTickDefinitions.strafeRightAuto;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.claw.Target_claw.claw;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.claw.clawMovements.closeClaw;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.claw.clawMovements.openClaw;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.clawWrist.wristClawMovements.wristMove;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -67,6 +69,15 @@ public class RedFarSideGuess extends Target_operations {
         mapOtherThings(hardwareMap);
         TouchSensorButton.mapDigital(hardwareMap); // button
 
+        wristMove(0.8);
+        // set wrist to a position needed to touch the ground
+
+        // extend shaft somehow.
+
+        closeClaw();
+        // the claw closes so it will not hit anything as the arm lowers
+        // in runInitLoop should be openClaw(); under if button is pressed, do once
+
     }
 
     @Override
@@ -74,9 +85,11 @@ public class RedFarSideGuess extends Target_operations {
         telemetry.addData("found: ", sensorRange.getDistance(DistanceUnit.INCH));
         telemetry.update();
 
-        openClaw();
         if (button.isPressed() && !hasBeenPressed) {
             arm.setPower(-1);
+            // move arm up only one notch
+            // open claw so the robot fits in the 18x18 zone
+            openClaw();
             hasBeenPressed = true;
         }
         else if (hasBeenPressed) {
@@ -92,7 +105,7 @@ public class RedFarSideGuess extends Target_operations {
 
         // guess that team prop is in middle
         strafeLeftAuto(3,2,500); // away from rigging
-        forwardAuto(25,3,500);
+        forwardAuto(29,3,500);
         backwardAuto(25,3,500);
 
         // park

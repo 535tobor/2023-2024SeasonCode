@@ -13,13 +13,13 @@ public class Target_oFreeSpin {
         oRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
     
-    public static void oTicksGoInches_Backward(double inches) {
+    public static void oTicksGoInches_Backward(double inches, int speed) {
         double oneInch = 20_000/12;
         boolean loop = true;
         // 19+3/4 = oLeft -32000 oRight 32000 // 10 14/16
         while (loop) {
             if (oLeft.getCurrentPosition() <= oneInch*inches && oRight.getCurrentPosition() >= -oneInch*inches) {
-                driveAuto(-500,-500,-500,-500);
+                driveAuto(-speed,-speed,-speed,-speed);
             }
             else {
                 driveStop();
@@ -28,13 +28,13 @@ public class Target_oFreeSpin {
         }
     }
 
-    public static void oTicksGoInches_Forward(int inches) {
+    public static void oTicksGoInches_Forward(int inches, int speed) {
         double oneInch = 20_000/12;
         boolean loop = true;
         // 19+3/4 = oLeft -32000 oRight 32000 // 10 14/16
         while (loop) {
             if (oLeft.getCurrentPosition() >= -oneInch*inches && oRight.getCurrentPosition() <= oneInch*inches) {
-                driveAuto(-500,-500,-500,-500);
+                driveAuto(-speed,-speed,-speed,-speed);
             }
             else {
                 driveStop();
