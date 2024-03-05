@@ -40,7 +40,7 @@ import org.openftc.easyopencv.OpenCvWebcam;
 
 import java.io.IOException;
 
-@TeleOp
+@TeleOp(name="Webcam Example", group="video")
 public class WebcamExample extends LinearOpMode
 {
     OpenCvWebcam webcam;
@@ -73,11 +73,11 @@ public class WebcamExample extends LinearOpMode
 
         // Initialize the media recorder
         mediaRecorder = new MediaRecorder();
-        mediaRecorder.setVideoSource(MediaRecorder.VideoSource.SURFACE);
-        mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
-        mediaRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.H264);
-        mediaRecorder.setVideoSize(640, 480);
-        mediaRecorder.setVideoFrameRate(30);
+        mediaRecorder.setVideoSource(MediaRecorder.VideoSource.DEFAULT);
+        mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
+        mediaRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.DEFAULT);
+        mediaRecorder.setVideoSize(3264, 2448);
+        mediaRecorder.setVideoFrameRate(15);
         mediaRecorder.setOutputFile(FILE_PATH);
 
         // Prepare the media recorder
@@ -125,7 +125,7 @@ public class WebcamExample extends LinearOpMode
                  * For a rear facing camera or a webcam, rotation is defined assuming the camera is facing
                  * away from the user.
                  */
-                webcam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
+                webcam.startStreaming(3264, 2448, OpenCvCameraRotation.UPRIGHT);
             }
 
             @Override

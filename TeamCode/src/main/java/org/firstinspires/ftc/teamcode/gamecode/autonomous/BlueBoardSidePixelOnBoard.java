@@ -3,23 +3,27 @@ package org.firstinspires.ftc.teamcode.gamecode.autonomous;
 import static org.firstinspires.ftc.teamcode.operations.inOut.Configs.mapOtherThings;
 import static org.firstinspires.ftc.teamcode.operations.inOut.Configs.sensorRange;
 import static org.firstinspires.ftc.teamcode.operations.inputs.AprilTag.initAprilTag;
+import static org.firstinspires.ftc.teamcode.operations.inputs.Target_inputs.imu;
 import static org.firstinspires.ftc.teamcode.operations.inputs.TouchSensorButton.button;
+import static org.firstinspires.ftc.teamcode.operations.outputs.driverStation.DriverStation.outputMake;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.arm.Target_arm.arm;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.arm.armMovements.rotateArm;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.shaft.Target_shaft.shaft;
-import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.bl;
-import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.br;
-import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.fl;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.*;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.forwardMotors;
-import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.fr;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.mapMotors;
-import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EncoderTickDefinitions.backwardAuto;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.CentricMovements.fieldCentric.forward;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EachMotorSet.driveAutoForward;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EachMotorSet.driveRaw;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EachMotorSet.driveStop;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EncoderTickDefinitions.forwardAuto;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EncoderTickDefinitions.forwardAutoKeepGo;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EncoderTickDefinitions.strafeLeftAuto;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EncoderTickDefinitions.strafeRightAuto;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EncoderTickDefinitions.turnLeftAuto;
-import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.claw.Target_claw.claw;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.claw.clawMovements.closeClaw;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.claw.clawMovements.openClaw;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.clawWrist.wristClawMovements.wristIn;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.clawWrist.wristClawMovements.wristMove;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -68,7 +72,7 @@ public class BlueBoardSidePixelOnBoard extends Target_operations {
         mapOtherThings(hardwareMap);
         TouchSensorButton.mapDigital(hardwareMap); // button
 
-        wristMove(0.8);
+        wristMove(0.6);
         // set wrist to a position needed to touch the ground
 
         // extend shaft somehow.
@@ -82,6 +86,7 @@ public class BlueBoardSidePixelOnBoard extends Target_operations {
     @Override
     public void runInitLoop() {
         telemetry.addData("found: ", sensorRange.getDistance(DistanceUnit.INCH));
+        telemetry.addData("imu: ", imu.getRobotYawPitchRollAngles());
         telemetry.update();
 
         if (button.isPressed() && !hasBeenPressed) {
@@ -101,18 +106,63 @@ public class BlueBoardSidePixelOnBoard extends Target_operations {
 
     @Override
     public void runStart() {
-        // move to board and put a pixel on the board
         closeClaw();
+        // move to board and put a pixel on the board
+        rotateArm(1,0.5);
+        closeClaw();
+        rotateArm(20,1);
         // sleep(2000); // this sleep should not be necessary
-        forwardAuto(1,5,500); // move away from the wall
-        rotateArm(2,0.5); // arm up so it does not scrape the ground
-        strafeLeftAuto(23,5,1000); // strafe towards the board side
-        forwardAuto(18,5,1000); // forward so that the robot's side is parallel to the board
-        turnLeftAuto(90,5,1000); // turn left so that the robot's front faces the board
+        //rotateArm(10,0.5);
+
+        forwardAuto(1,1,500); // move away from the wall
+        //rotateArm(2,0.5); // arm up so it does not scrape the ground
+        strafeLeftAuto(23,3,1000); // strafe towards the board side
+        forwardAuto(18,2,1000); // forward so that the robot's side is parallel to the board
+        turnLeftAuto(90,1,1000); // turn left so that the robot's front faces the board
+        telemetry.addData("number", "1");
+        telemetry.update();
+        sleep(2000);
 
 
-        
-        forwardAuto(15,5,1000); // up to the board enough
+        closeClaw();
+        forwardAuto(10,2,1000); // up to the board enough
+        rotateArm(500,1);
+        telemetry.addData("number", "2");
+        telemetry.update();
+        sleep(2000);
+
+        strafeRightAuto(5,1,1000);
+        closeClaw();
+        telemetry.addData("number", "3");
+        sleep(2000);
+        telemetry.addData("distance", sensorRange.getDistance(DistanceUnit.INCH));
+        telemetry.update();
+        while (sensorRange.getDistance(DistanceUnit.INCH) > 3) {
+            forwardAutoKeepGo(1,1000);
+            telemetry.addData("forward", "Go!");
+            telemetry.addData("distance", sensorRange.getDistance(DistanceUnit.INCH));
+            telemetry.addData("distance", sensorRange.getDistance(DistanceUnit.INCH));
+            telemetry.update();
+        }
+        driveStop();
+        telemetry.addData("number", "4");
+        telemetry.addData("distance", sensorRange.getDistance(DistanceUnit.INCH));
+        telemetry.update();
+        sleep(2000);
+        wristMove(0.75);
+        forwardAutoKeepGo(1,1000);
+
+        telemetry.addData("number", "5");
+        telemetry.addData("distance", sensorRange.getDistance(DistanceUnit.INCH));
+        telemetry.update();
+        sleep(2000);
+        shaft.setTargetPosition(800);
+        shaft.setPower(1);
+        shaft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        sleep(2000);
+        openClaw(0.3);
+
+
 
     }
 
@@ -122,6 +172,7 @@ public class BlueBoardSidePixelOnBoard extends Target_operations {
         telemetry.addData("position FR ", fr.getCurrentPosition());
         telemetry.addData("position BL ", bl.getCurrentPosition());
         telemetry.addData("position BR ", br.getCurrentPosition());
+        telemetry.addData("imu ", imu.getRobotYawPitchRollAngles());
         telemetry.update();
     }
 

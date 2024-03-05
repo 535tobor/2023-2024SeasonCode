@@ -24,6 +24,33 @@ public class EncoderTickDefinitions {
 
     }
 
+    public static void forwardAutoTeleOp(double inches, long seconds, int encoderSpeed) { // forward good.
+        int finalTicks = (int) (inches * ticksPerInch);
+        Encoders.clear(); // resets wheel encoders
+        Encoders.target(finalTicks,finalTicks,finalTicks,finalTicks); // sets target position
+        Encoders.go(); // goes to target position
+        driveAuto(encoderSpeed,encoderSpeed,encoderSpeed,encoderSpeed); // sets the velocity drive
+        sleep(seconds*1000);
+        driveStop();
+
+    }
+
+    public static void forwardAutoKeepGoTeleOp(double inches, int encoderSpeed) { // forward good.
+        int finalTicks = (int) (inches * ticksPerInch);
+        Encoders.clear(); // resets wheel encoders
+        Encoders.target(finalTicks,finalTicks,finalTicks,finalTicks); // sets target position
+        Encoders.go(); // goes to target position
+        driveAuto(encoderSpeed,encoderSpeed,encoderSpeed,encoderSpeed); // sets the velocity drive
+    }
+
+    public static void forwardAutoKeepGo(double inches, int encoderSpeed) { // forward good.
+        int finalTicks = (int) (inches * ticksPerInch);
+        Encoders.clear(); // resets wheel encoders
+        Encoders.target(-finalTicks,-finalTicks,-finalTicks,-finalTicks); // sets target position
+        Encoders.go(); // goes to target position
+        driveAuto(-encoderSpeed,-encoderSpeed,-encoderSpeed,-encoderSpeed); // sets the velocity drive
+    }
+
 
 
     public static void backwardAuto(double inches, long seconds, int encoderSpeed) { // forward good.

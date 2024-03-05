@@ -3,11 +3,12 @@ package org.firstinspires.ftc.teamcode.operations.inOut.driverControlled;
 import static com.qualcomm.hardware.rev.RevHubOrientationOnRobot.LogoFacingDirection.UP;
 import static com.qualcomm.hardware.rev.RevHubOrientationOnRobot.UsbFacingDirection.RIGHT;
 import static org.firstinspires.ftc.teamcode.operations.inOut.Configs.mapOtherThings;
-import static org.firstinspires.ftc.teamcode.operations.inOut.driverControlled.gamepad2.General.runLoopGamepad2;
+import static org.firstinspires.ftc.teamcode.operations.inOut.driverControlled.gamepadMovements.General.runLoopGamepad2;
 import static org.firstinspires.ftc.teamcode.operations.inputs.AprilTag.initAprilTag;
 import static org.firstinspires.ftc.teamcode.operations.inputs.Imu.imuGet;
 import static org.firstinspires.ftc.teamcode.operations.inputs.Imu.imuReset;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.arm.Target_arm.arm;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.shaft.Target_shaft.shaft;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.forwardMotors;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.mapMotors;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Mecanum.dpadMovements;
@@ -49,24 +50,25 @@ public class RobotCentric {
         TouchSensorButton.mapDigital(hardwareMap); // button
 
         arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        shaft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
     public static void runLoopRobotCentric(Telemetry telemetry, Gamepad gamepad1, Gamepad gamepad2, double speed){
-        dpadMovements(gamepad1, speed); // sets waypoints to the d_pads's positions
+        /*dpadMovements(gamepad1, speed); // sets waypoints to the d_pads's positions
         extraSpeed(gamepad1);
 
 
         imuReset(gamepad1.options); // resets imu case of accidents or incidences
-        robotCentricMath(); // does the required math for Mecanum drive (Robot Centric)
+        robotCentricMath(); // does the required math for Mecanum drive (Robot Centric)*/
 
-        runLoopGamepad2(gamepad2, gamepad1);
-        TelemetryShow.allLoopMessages(telemetry);
+        runLoopGamepad2(telemetry, gamepad2, gamepad1, speed);
+        /*TelemetryShow.allLoopMessages(telemetry);
 
 
         //clawUseWithGamepad(gamepad2); // using the claw (open/close)
         //armUseWithGamepad(gamepad2); // using the arm (rotation)
         //shaftUseWithGamepad(gamepad2); // using the shaft/lift (up/down)
         drive(frontLeftPower,frontRightPower,backLeftPower,backRightPower);
-        // sets each motor to the encoder counts given by the waypoints method
+        // sets each motor to the encoder counts given by the waypoints method*/
     }
 }

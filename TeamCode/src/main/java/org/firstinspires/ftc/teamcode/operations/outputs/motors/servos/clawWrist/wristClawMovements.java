@@ -16,6 +16,6 @@ public class wristClawMovements {
     }
 
     public static void wristIn() {
-        wrist.setPosition(0.2);
+        wrist.setPosition(0.3);
     } // 0
 }

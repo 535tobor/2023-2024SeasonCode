@@ -14,7 +14,34 @@ public class EachMotorSet {
         fl.setVelocity(frontLeftSpeed*1500);
         br.setVelocity(backRightSpeed*1500);
         bl.setVelocity(backLeftSpeed*1500);
+        // set speed
+
+    }
+
+    public static void driveRaw(double frontLeftSpeed, double frontRightSpeed, double backLeftSpeed, double backRightSpeed) {
+        fr.setPower(frontRightSpeed);
+        fl.setPower(frontLeftSpeed);
+        br.setPower(backRightSpeed);
+        bl.setPower(backLeftSpeed);
         // set raw power (voltage) to each motor individually
+
+    }
+
+    public static void driveAutoForward(double speed) {
+        fr.setVelocity(-speed);
+        fl.setVelocity(-speed);
+        br.setVelocity(-speed);
+        bl.setVelocity(-speed);
+        // speed not power
+
+    }
+
+    public static void driveAutoBackward(double speed) {
+        fr.setVelocity(speed);
+        fl.setVelocity(speed);
+        br.setVelocity(speed);
+        bl.setVelocity(speed);
+        // speed not power
 
     }
 

@@ -1,6 +1,9 @@
 package org.firstinspires.ftc.teamcode.operations.inOut;
 
+import static com.qualcomm.hardware.rev.RevHubOrientationOnRobot.LogoFacingDirection.UP;
+import static com.qualcomm.hardware.rev.RevHubOrientationOnRobot.UsbFacingDirection.RIGHT;
 import static org.firstinspires.ftc.teamcode.gamecode.teleop.RobotCentric.wrist;
+import static org.firstinspires.ftc.teamcode.operations.inputs.Imu.imuGet;
 import static org.firstinspires.ftc.teamcode.operations.inputs.oFreeSpin.Odometer.oLeft;
 import static org.firstinspires.ftc.teamcode.operations.inputs.oFreeSpin.Odometer.oRight;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.arm.Target_arm.arm;
@@ -16,6 +19,7 @@ import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.teamcode.operations.inputs.DeviceNames;
 import org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.hang.ConfigureHangReleaseServo;
 
 public class Configs {
@@ -29,6 +33,7 @@ public class Configs {
         claw = hardwareMap.get(Servo.class, "claw");
         oLeft = hardwareMap.get(DcMotor.class, "oLeft");
         oRight = hardwareMap.get(DcMotor.class, "oRight");
+        imuGet(hardwareMap, DeviceNames.DEFAULT_IMU.hardwareMapName(), RIGHT.name(), UP.name());
         //drone = hardwareMap.get(Sensor.class, "drone");
 
         ConfigureHangReleaseServo.mapServo(hardwareMap);

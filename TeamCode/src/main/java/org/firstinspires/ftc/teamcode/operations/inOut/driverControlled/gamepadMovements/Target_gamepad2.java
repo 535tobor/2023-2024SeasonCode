@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.operations.inOut.driverControlled.gamepad2;
+package org.firstinspires.ftc.teamcode.operations.inOut.driverControlled.gamepadMovements;
 
 public class Target_gamepad2 {
     public static boolean leftBump = true;
