@@ -1,13 +1,11 @@
-# Version 2.2 Pixel Bot
-![image](https://github.com/535tobor/2023-2024SeasonCode/assets/92122791/10c61eee-7459-4978-b739-55864a8b9a55)
-![image](https://github.com/535tobor/2023-2024SeasonCode/assets/114669697/3c7a8f84-a469-4dfd-9fe6-9860ff7dd95b)
-![image](https://github.com/535tobor/2023-2024SeasonCode/assets/114669697/4c90df6b-4e6d-401d-9a4b-833e2c06e49e)
-![image](https://github.com/535tobor/2023-2024SeasonCode/assets/114669697/0dd9382f-14dc-4994-9c0e-86f06a1e9259)
-![image](https://github.com/535tobor/2023-2024SeasonCode/assets/114669697/7db755b8-aad7-4265-97c8-1f0a7cf860e2)
-![image](https://github.com/535tobor/2023-2024SeasonCode/assets/114669697/2e5068cf-6c5b-407f-ab5e-e907a7b12ac0)
-![image](https://github.com/535tobor/2023-2024SeasonCode/assets/114669697/a257897b-55f3-4e0f-b809-3c4b4034ffcf)
+# Version 3.0 Hang Bot
 
+The hanging is the most reliable part of our robot. With the same system, we have found out how to attach a paper airplane drone to the hanger, this way when we release the hang we also release the drone.
 
+![image](https://github.com/535tobor/2023-2024SeasonCode/assets/92122791/01bd59c1-e0bf-4b87-a780-3fd37dfe623f)
+![image](https://github.com/535tobor/2023-2024SeasonCode/assets/92122791/7ae5a787-b3af-4caf-8caa-2fde1fe23447)
+![image](https://github.com/535tobor/2023-2024SeasonCode/assets/92122791/ff18a3f2-bb00-49a4-bd30-d33b2bc4170c)
+![image](https://github.com/535tobor/2023-2024SeasonCode/assets/92122791/f6d914f4-c747-439d-a1dd-a7353b587288)
 
 
 
