@@ -4,6 +4,7 @@ import static android.os.SystemClock.sleep;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EachMotorSet.drive;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EachMotorSet.driveAuto;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EachMotorSet.driveStop;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EachMotorSet.useDriveEncoders;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.Target_definingDriveMovements.strafeTicksPerInch;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.Target_definingDriveMovements.ticksPerInch;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.Target_definingDriveMovements.turningTicksPerDegree;
@@ -25,6 +26,7 @@ public class EncoderTickDefinitions {
     }
 
     public static void forwardAutoTeleOp(double inches, long seconds, int encoderSpeed) { // forward good.
+        useDriveEncoders(true);
         int finalTicks = (int) (inches * ticksPerInch);
         Encoders.clear(); // resets wheel encoders
         Encoders.target(finalTicks,finalTicks,finalTicks,finalTicks); // sets target position
@@ -32,6 +34,7 @@ public class EncoderTickDefinitions {
         driveAuto(encoderSpeed,encoderSpeed,encoderSpeed,encoderSpeed); // sets the velocity drive
         sleep(seconds*1000);
         driveStop();
+        useDriveEncoders(true);
 
     }
 
@@ -43,12 +46,29 @@ public class EncoderTickDefinitions {
         driveAuto(encoderSpeed,encoderSpeed,encoderSpeed,encoderSpeed); // sets the velocity drive
     }
 
+    public static void backwardAutoKeepGoTeleOp(double inches, int encoderSpeed) { // forward good.
+        int finalTicks = (int) (inches * ticksPerInch);
+        Encoders.clear(); // resets wheel encoders
+        Encoders.target(-finalTicks,-finalTicks,-finalTicks,-finalTicks); // sets target position
+        Encoders.go(); // goes to target position
+        driveAuto(-encoderSpeed,-encoderSpeed,-encoderSpeed,-encoderSpeed); // sets the velocity drive
+    }
+
+
     public static void forwardAutoKeepGo(double inches, int encoderSpeed) { // forward good.
         int finalTicks = (int) (inches * ticksPerInch);
         Encoders.clear(); // resets wheel encoders
         Encoders.target(-finalTicks,-finalTicks,-finalTicks,-finalTicks); // sets target position
         Encoders.go(); // goes to target position
         driveAuto(-encoderSpeed,-encoderSpeed,-encoderSpeed,-encoderSpeed); // sets the velocity drive
+    }
+
+    public static void backwardAutoKeepGo(double inches, int encoderSpeed) { // forward good.
+        int finalTicks = (int) (inches * ticksPerInch);
+        Encoders.clear(); // resets wheel encoders
+        Encoders.target(finalTicks,finalTicks,finalTicks,finalTicks); // sets target position
+        Encoders.go(); // goes to target position
+        driveAuto(encoderSpeed,encoderSpeed,encoderSpeed,encoderSpeed); // sets the velocity drive
     }
 
 
@@ -80,7 +100,7 @@ public class EncoderTickDefinitions {
         strafeLeftAuto(-inches,seconds,-encoderSpeed);
     }
 
-    public static void turnRightAuto(double degrees, long seconds, int encoderSpeed) { // turn Left
+    public static void turnRightAutoNo(double degrees, long seconds, int encoderSpeed) { // turn Left
         int finalTicks = (int) (degrees * turningTicksPerDegree);
         Encoders.clear(); // resets wheel encoders // fl, fr, bl, br
         Encoders.target(-finalTicks,finalTicks,-finalTicks,finalTicks); // sets target position
@@ -93,7 +113,13 @@ public class EncoderTickDefinitions {
     public static void turnLeftAuto(double degrees, long seconds, int encoderSpeed) { // turn
         // 500 * 3 (90 degrees)
         double degreesTurn = 500 * 3/90*degrees; // 1 degree multiplied by entered degrees
-        turnRightAuto(-degreesTurn,seconds,-encoderSpeed);
+        turnRightAutoNo(-degreesTurn,seconds,-encoderSpeed);
+    }
+
+    public static void turnRightAuto(double degrees, long seconds, int encoderSpeed) { // turn
+        // 500 * 3 (90 degrees)
+        double degreesTurn = 500 * 3/90*degrees; // 1 degree multiplied by entered degrees
+        turnRightAutoNo(degreesTurn,seconds,encoderSpeed);
     }
 
 }

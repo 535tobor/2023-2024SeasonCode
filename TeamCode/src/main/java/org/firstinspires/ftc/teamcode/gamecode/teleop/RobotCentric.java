@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.gamecode.teleop;
 
 import static org.firstinspires.ftc.teamcode.operations.inOut.driverControlled.RobotCentric.initRobotCentric;
 import static org.firstinspires.ftc.teamcode.operations.inOut.driverControlled.RobotCentric.runLoopRobotCentric;
+import static org.firstinspires.ftc.teamcode.operations.inOut.driverControlled.gamepadMovements.General.generalControlSetup;
 import static org.firstinspires.ftc.teamcode.operations.inputs.AprilTag.visionPortal;
 import static org.firstinspires.ftc.teamcode.operations.inputs.Target_inputs.cameraConnected;
 import static org.firstinspires.ftc.teamcode.operations.outputs.driverStation.DriverStation.output;
@@ -49,12 +50,13 @@ public class RobotCentric extends Target_operations {
 
     @Override
     public void runInitLoop() {
-        outputMake(telemetry,"running init loop");
+        //outputMake(telemetry,"running init loop");
+        //generalControlSetup();
     }
 
     @Override
     public void runStart() {
-        outputMake(telemetry,"running start");
+        //outputMake(telemetry,"running start");
         //claw.setPosition(claw.getPosition()+2000);
         fl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         fr.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -67,7 +69,7 @@ public class RobotCentric extends Target_operations {
 
     @Override
     public void runLoop() {
-        output(telemetry, "running loop");
+        //output(telemetry, "running loop");
         runLoopRobotCentric(telemetry,gamepad1,gamepad2,speed);
 
     }

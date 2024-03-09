@@ -6,14 +6,32 @@ import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Con
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.fl;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.ConfigureMotors.fr;
 
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 public class EachMotorSet {
     public static void drive(double frontLeftSpeed, double frontRightSpeed, double backLeftSpeed, double backRightSpeed) {
-        fr.setVelocity(frontRightSpeed*1500);
-        fl.setVelocity(frontLeftSpeed*1500);
-        br.setVelocity(backRightSpeed*1500);
-        bl.setVelocity(backLeftSpeed*1500);
+        fr.setVelocity(frontRightSpeed*2000);
+        fl.setVelocity(frontLeftSpeed*2000);
+        br.setVelocity(backRightSpeed*2000);
+        bl.setVelocity(backLeftSpeed*2000);
+        // set speed
+
+    }
+
+    public static void useDriveEncoders(boolean encoders) {
+        if (encoders) {
+            fr.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            fl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            br.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            bl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        }
+        else {
+            fr.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            fl.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            br.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            bl.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        }
         // set speed
 
     }

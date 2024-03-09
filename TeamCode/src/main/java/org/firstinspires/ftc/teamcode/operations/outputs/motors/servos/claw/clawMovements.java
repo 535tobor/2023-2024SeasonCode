@@ -4,6 +4,7 @@ import static org.firstinspires.ftc.teamcode.operations.outputs.motors.servos.cl
 
 public class clawMovements {
     // claw open and close to pick up pixels
+    public static double clawValue = 0;
 
     public static void openClaw() {claw.setPosition(0.4);
     }
@@ -13,6 +14,6 @@ public class clawMovements {
     }
 
     public static void closeClaw() {
-        claw.setPosition(0.1);
+        claw.setPosition(0.05);
     }
 }

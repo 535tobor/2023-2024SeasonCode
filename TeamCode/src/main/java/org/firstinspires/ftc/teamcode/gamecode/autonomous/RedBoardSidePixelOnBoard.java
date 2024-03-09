@@ -48,8 +48,8 @@ import org.firstinspires.ftc.teamcode.operations.inputs.TouchSensorButton;
 import org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Encoders;
 import org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Wheels;
 
-@Autonomous(name="PxB: Blue, Board Side. Pixel On Board", group="pixel board")
-public class BlueBoardSidePixelOnBoard extends Target_operations {
+@Autonomous(name="PxB: Red, Board Side. Pixel On Board", group="pixel board")
+public class RedBoardSidePixelOnBoard extends Target_operations {
     boolean hasBeenPressed = false;
     boolean xHasBeenPressed = false;
     Orientation direction;

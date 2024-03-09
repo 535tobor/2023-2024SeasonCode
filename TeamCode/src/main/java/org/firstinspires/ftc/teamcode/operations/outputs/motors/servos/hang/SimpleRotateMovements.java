@@ -9,6 +9,6 @@ public class SimpleRotateMovements {
     }
 
     public static void grabHang() {
-        hang.setPosition(1); // set servo to the starting position in all initializations
+        hang.setPosition(0.9); // set servo to the starting position in all initializations
     }
 }

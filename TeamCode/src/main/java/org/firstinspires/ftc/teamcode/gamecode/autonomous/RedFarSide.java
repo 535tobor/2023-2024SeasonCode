@@ -125,6 +125,7 @@ public class RedFarSide extends Target_operations {
         // lift arm above ground, holding 1 pixel
         rotateArm(100, 1);
         sleep(1000);
+        forwardAuto(5,1,1000);
 
 
         if (teamprop == 2) { // if the middle team prop is found then go to it and drop the pixel

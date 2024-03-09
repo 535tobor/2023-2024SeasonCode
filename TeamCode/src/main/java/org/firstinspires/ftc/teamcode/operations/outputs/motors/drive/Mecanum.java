@@ -53,7 +53,7 @@ public class Mecanum {
     }
 
     public static void extraSpeed(Gamepad gamepad1) {
-        // if robot goes forward then make speed a higher positave
+        // if robot goes forward then make speed a higher positive
         if (frontLeftPower > 0 && frontRightPower > 0 && backLeftPower > 0 && backRightPower > 0) {
             extraSpeed = gamepad1.right_trigger; // + positive
         }
@@ -63,7 +63,7 @@ public class Mecanum {
             extraSpeed = gamepad1.right_trigger*-1; // - negative
         }
     }
-    public static void dpadMovements(Gamepad gamepad1, double speed) {
+    public static void dpadMovements(Gamepad gamepad1, Gamepad gamepad2, double speed) {
         // Mecanum using the dpad, if drivers want it, its there.
         // how this works is it sets the x and y values depending on what button is pressed.
         // it is replacing the joystick value with its own.
@@ -83,13 +83,14 @@ public class Mecanum {
             fieldCentric.backward(speed);
         }
 
-        else if (gamepad1.left_bumper) {
+        else if (gamepad1.left_bumper || gamepad2.left_trigger > 0) {
             fieldCentric.turn(-speed);
         }
 
-        else if (gamepad1.right_bumper) {
+        else if (gamepad1.right_bumper || gamepad2.right_trigger > 0) {
             fieldCentric.turn(speed);
         }
+
 
         else {
             joyStickMovements(gamepad1); // this way if no input is read from the d_pad then it looks for input given by the joysticks

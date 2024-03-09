@@ -50,8 +50,6 @@ public class AprilTag {
         // add AprilTag found information to set variables
 
         List<AprilTagDetection> currentDetections = aprilTag.getDetections();
-        firstTagFound = currentDetections.get(0);
-        firstTagId = firstTagFound.id;
         tagsFound = currentDetections.size();
 
         // Step through the list of detections and display info for each one.

@@ -1,8 +1,12 @@
 package org.firstinspires.ftc.teamcode.operations.inOut.driverControlled;
 
+import static com.qualcomm.hardware.rev.RevHubOrientationOnRobot.LogoFacingDirection.LEFT;
 import static com.qualcomm.hardware.rev.RevHubOrientationOnRobot.LogoFacingDirection.UP;
+import static com.qualcomm.hardware.rev.RevHubOrientationOnRobot.UsbFacingDirection.FORWARD;
 import static com.qualcomm.hardware.rev.RevHubOrientationOnRobot.UsbFacingDirection.RIGHT;
 import static org.firstinspires.ftc.teamcode.operations.inOut.Configs.mapOtherThings;
+import static org.firstinspires.ftc.teamcode.operations.inOut.driverControlled.Target_driverControlled.isFieldCentric;
+import static org.firstinspires.ftc.teamcode.operations.inOut.driverControlled.gamepadMovements.General.generalControlSetup;
 import static org.firstinspires.ftc.teamcode.operations.inOut.driverControlled.gamepadMovements.General.runLoopGamepad2;
 import static org.firstinspires.ftc.teamcode.operations.inputs.AprilTag.initAprilTag;
 import static org.firstinspires.ftc.teamcode.operations.inputs.Imu.imuGet;
@@ -43,7 +47,7 @@ public class RobotCentric {
         ConfigureShaft.mapMotor(hardwareMap);
 
         forwardMotors(false,true,false,true);
-        imuGet(hardwareMap, DeviceNames.DEFAULT_IMU.hardwareMapName(), RIGHT.name(), UP.name());
+        // imu is in mapOtherThings
         initAprilTag(hardwareMap, DeviceNames.DEFAULT_CAMERA.hardwareMapName(), telemetry);
 
         mapOtherThings(hardwareMap);
@@ -51,6 +55,8 @@ public class RobotCentric {
 
         arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         shaft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        isFieldCentric = false;
     }
 
     public static void runLoopRobotCentric(Telemetry telemetry, Gamepad gamepad1, Gamepad gamepad2, double speed){
@@ -62,7 +68,8 @@ public class RobotCentric {
         robotCentricMath(); // does the required math for Mecanum drive (Robot Centric)*/
 
         runLoopGamepad2(telemetry, gamepad2, gamepad1, speed);
-        /*TelemetryShow.allLoopMessages(telemetry);
+        TelemetryShow.allLoopMessages(telemetry);
+        /*
 
 
         //clawUseWithGamepad(gamepad2); // using the claw (open/close)

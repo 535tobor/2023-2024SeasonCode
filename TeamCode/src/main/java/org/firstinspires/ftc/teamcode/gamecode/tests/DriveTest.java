@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.teamcode.operations.Target_operations;
 @Autonomous(name="Drive Test", group="test")
-@Disabled // test files are disabled if not in use
+//@Disabled // test files are disabled if not in use
 public class DriveTest extends Target_operations {
 
     DcMotor frontLeftMotor;
@@ -67,7 +67,11 @@ public class DriveTest extends Target_operations {
 
     @Override
     public void runLoop() {
-        forward();
+        frontLeftMotor.setPower(gamepad1.left_stick_y);
+        frontRightMotor.setPower(gamepad1.right_stick_y);
+
+        backLeftMotor.setPower(gamepad2.left_stick_y);
+        backRightMotor.setPower(gamepad2.right_stick_y);
     }
 
     @Override

@@ -73,6 +73,11 @@ public class Imu {
                     RevHubOrientationOnRobot.LogoFacingDirection.FORWARD,
                     RevHubOrientationOnRobot.UsbFacingDirection.LEFT));
         }
+        else if (Objects.equals(logoFacing, LEFT.name()) && Objects.equals(usbFacing, FORWARD.name())) {
+            parameters = new Parameters(new RevHubOrientationOnRobot(
+                    RevHubOrientationOnRobot.LogoFacingDirection.LEFT,
+                    RevHubOrientationOnRobot.UsbFacingDirection.FORWARD));
+        }
         imu.initialize(parameters);
     }
 

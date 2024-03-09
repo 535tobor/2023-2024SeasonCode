@@ -11,6 +11,7 @@ import static org.firstinspires.ftc.teamcode.operations.inputs.AprilTag.setApril
 import static org.firstinspires.ftc.teamcode.operations.inputs.AprilTag.tagId;
 import static org.firstinspires.ftc.teamcode.operations.inputs.Target_inputs.imu;
 import static org.firstinspires.ftc.teamcode.operations.inputs.TouchSensorButton.button;
+import static org.firstinspires.ftc.teamcode.operations.inputs.VisionScanner.readProp;
 import static org.firstinspires.ftc.teamcode.operations.outputs.driverStation.DriverStation.outputMake;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.arm.Target_arm.arm;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.armLift.arm.armMovements.rotateArm;
@@ -23,6 +24,7 @@ import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.def
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EachMotorSet.driveRaw;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EachMotorSet.driveStop;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EachMotorSet.useDriveEncoders;
+import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EncoderTickDefinitions.backwardAuto;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EncoderTickDefinitions.forwardAuto;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EncoderTickDefinitions.forwardAutoKeepGo;
 import static org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.definingDriveMovements.EncoderTickDefinitions.forwardAutoKeepGoTeleOp;
@@ -48,12 +50,13 @@ import org.firstinspires.ftc.teamcode.operations.inputs.TouchSensorButton;
 import org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Encoders;
 import org.firstinspires.ftc.teamcode.operations.outputs.motors.drive.Wheels;
 
-@Autonomous(name="PxB: Blue, Board Side. Pixel On Board", group="pixel board")
-public class BlueBoardSidePixelOnBoard extends Target_operations {
+@Autonomous(name="BBuse boardScan", group="in use")
+public class BBuse extends Target_operations {
     boolean hasBeenPressed = false;
     boolean xHasBeenPressed = false;
     Orientation direction;
     private static int teamprop = 0;
+    private static int desiredAprilTag = 0;
     private static boolean found = false;
     private static double distanceUse = 0;
     private static double storedDistance = 0;
@@ -123,7 +126,13 @@ public class BlueBoardSidePixelOnBoard extends Target_operations {
 
         useDriveEncoders(true);
         useArmEncoders(true);
+
+
+
+
         rotateArm(500,1);
+
+
 
         setAprilTagVariables();
         // move to board and put a pixel on the board
@@ -132,6 +141,35 @@ public class BlueBoardSidePixelOnBoard extends Target_operations {
         //rotateArm(10,0.5);
 
         forwardAuto(1,1,500); // move away from the wall
+
+        // find prop in two places to get a number for april tag
+
+        readProp(telemetry, 35, 2,50);
+        if (teamprop == 2) {
+            desiredAprilTag = 2;
+        }
+
+        else {
+            strafeLeftAuto(8,1,800);
+            readProp(telemetry, 35, 1,50);
+            if (teamprop == 1) {
+                desiredAprilTag = 1;
+            }
+            else {
+                desiredAprilTag = 3;
+            }
+        }
+
+        telemetry.addData("desired April Tag:", desiredAprilTag);
+        telemetry.update();
+        strafeRightAuto(10,1,1000);
+
+
+
+
+
+
+
         //rotateArm(2,0.5); // arm up so it does not scrape the ground
         strafeLeftAuto(23,5,1000); // strafe towards the board side
         forwardAuto(18,2,1000); // forward so that the robot's side is parallel to the board
@@ -155,7 +193,10 @@ public class BlueBoardSidePixelOnBoard extends Target_operations {
         closeClaw();
         turnLeftAuto(5,1,800);
 
-        rotateArm(3811,1);
+        rotateArm(5951,1);
+        shaft.setTargetPosition(-747);
+        shaft.setPower(1);
+        shaft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         sleep(5000);
 
 
@@ -166,8 +207,17 @@ public class BlueBoardSidePixelOnBoard extends Target_operations {
             telemetry.addData("distance", sensorRange.getDistance(DistanceUnit.INCH));
             telemetry.update();
         }
+        setAprilTagVariables();
+        telemetry.addData("third tag id ", tagId);
+        telemetry.update();
+        if (tagId == 3) {
+            telemetry.addData("third tag id ", tagId);
+            telemetry.update();
+        }
+
         wristMove(0.48); // closest to 0
         openClaw();
+        backwardAuto(3,5,500);
 
 
 
